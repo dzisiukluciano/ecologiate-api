@@ -15,5 +15,9 @@
     "method-override": "^2.3.8",
     "mongoose": "^4.9.6",
     "node-restful": "^0.2.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dzisiukluciano/ecologiate-api"
+  },
 }
