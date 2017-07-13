@@ -27,3 +27,7 @@ Otra forma de correrlo muy útil es con nodemon. Para instalarlo tipear "npm ins
 
 7) para deployar en Heroku, simplemente hay que hacer un git push al remoto de heroku, y como tiene integración continua se buildea y se deploya solito. Hay que bajarse el command line interface:
 https://devcenter.heroku.com/articles/heroku-cli
+Para agregar el remoto: "heroku git:remote -a ecologiate".
+Si no usan el command line interface, pueden hacerlo con git: "git remote add heroku https://git.heroku.com/ecologiate.git"
+
+
