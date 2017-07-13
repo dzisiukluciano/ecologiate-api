@@ -10,10 +10,10 @@ Si no funciona por permisos, posiblemente tengan que configurar certificados ssh
 https://dreyacosta.com/comandos-basicos-para-manejarse-con-git-y-github/
 no tienen que hacer "git init", eso es si están creando un repo, en este caso ya está creado y se lo tienen que bajar
 
-3) Bajarse node con nvm, es un comando útil, el node version manager. El proyecto está usando la versión de node más estable a la fecha (6.9.2)
+3) Bajarse node con nvm, es un comando útil, el node version manager. El proyecto está usando la versión de node más estable a la fecha (6.11.1)
 https://github.com/creationix/nvm/blob/master/README.md
 
-"nvm install 6.9.2"
+"nvm install 6.11.1"
 esto instala también npm que se usa para correr el proyecto.
 
 4) Bajarse un ide de preferencia (yo uso Sublime)
