@@ -24,3 +24,6 @@ esto instala también npm que se usa para correr el proyecto.
 6) Correr el proyecto:
 "npm start"
 Otra forma de correrlo muy útil es con nodemon. Para instalarlo tipear "npm install -g nodemon" y luego para usarlo es simplemente con el comando "nodemon" parado en la raiz del proyecto. Lo que hace es levantarlo, y si cambia algun archivo lo vuelve a deployar en caliente sin necesidad de restart.
+
+7) para deployar en Heroku, simplemente hay que hacer un git push al remoto de heroku, y como tiene integración continua se buildea y se deploya solito. Hay que bajarse el command line interface:
+https://devcenter.heroku.com/articles/heroku-cli
