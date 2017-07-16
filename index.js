@@ -30,6 +30,11 @@ testRouter.get('/', function(req, res) {
 });
 app.use(testRouter);
 
+testRouter.get('/tutorial', function(req, res) {
+  res.send("<h1>Hola wachines!</h1>");
+});
+app.use(testRouter);
+
 // API routes
 var itemsRouter = express.Router();
 
