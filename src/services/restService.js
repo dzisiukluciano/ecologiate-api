@@ -6,9 +6,22 @@ var https = require("https");
  * @param options: http options object
  * @param callback: callback to pass the results JSON object(s) back
  */
-exports.getJSON = function(options, onResult)
+exports.getJSON = function(codeParam, onResult)
 {
     console.log("rest::getJSON");
+
+    var options = {
+        host: 'www.googleapis.com',
+        https: true,
+        path: '/customsearch/v1?'+
+        'key=AIzaSyCExeME6nNWBsHRSAlAhGDXQ7UPZXdYu2s'+ //key de mi custom search
+        '&cx=004997307265733943101%3Ayxvqxb5z0g0'+ //id del custom search
+        '&q='+codeParam, //query del buscador
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+    };
 
     var prot = ( options.https || options.port == 443 ) ? https : http;
     var req = prot.request(options, function(res)

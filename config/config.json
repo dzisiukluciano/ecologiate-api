@@ -1,0 +1,38 @@
+{
+  "development": {
+    "username": "resbtxylqdcrze",
+    "password": "648ee803ef42204a54623f10f1d573f2fa97d121565377b9ca059d5c31996736",
+    "database": "dd99bceu99ufug",
+    "host": "ec2-54-235-80-137.compute-1.amazonaws.com",
+    "dialect": "postgres",
+    "protocol": "postgres",
+    "port": "5432",
+    "dialectOptions": {
+        "ssl": true
+    }
+  },
+  "test": {
+    "username": "resbtxylqdcrze",
+    "password": "648ee803ef42204a54623f10f1d573f2fa97d121565377b9ca059d5c31996736",
+    "database": "dd99bceu99ufug",
+    "host": "ec2-54-235-80-137.compute-1.amazonaws.com",
+    "dialect": "postgres",
+    "protocol": "postgres",
+    "port": "5432",
+    "dialectOptions": {
+        "ssl": true
+    }
+  },
+  "production": {
+    "username": "resbtxylqdcrze",
+    "password": "648ee803ef42204a54623f10f1d573f2fa97d121565377b9ca059d5c31996736",
+    "database": "dd99bceu99ufug",
+    "host": "ec2-54-235-80-137.compute-1.amazonaws.com",
+    "dialect": "postgres",
+    "protocol": "postgres",
+    "port": "5432",
+    "dialectOptions": {
+        "ssl": true
+    }
+  }
+}

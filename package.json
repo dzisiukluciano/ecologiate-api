@@ -2,9 +2,9 @@
   "name": "ecologiate-api",
   "version": "1.0.0",
   "description": "Backend Ecologiate",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -14,10 +14,19 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "debug": "^2.6.3",
     "express": "^4.15.2",
+    "jade": "^1.11.0",
     "method-override": "^2.3.8",
     "mongoose": "^4.9.6",
-    "node-restful": "^0.2.6"
+    "morgan": "^1.8.1",
+    "node-restful": "^0.2.6",
+    "pg": "^7.0.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.4.2",
+    "sequelize-cli": "^2.7.0",
+    "serve-favicon": "^2.4.2"
   },
   "repository": {
     "type": "git",
