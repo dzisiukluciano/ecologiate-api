@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
     descripcion : { type: DataTypes.STRING},
 	producto_id : { type: DataTypes.INTEGER},
 	cant_producto : { type: DataTypes.INTEGER },
-	medallas_recompensa : { type: DataTypes.INTEGER }
+	medallas_recompensa : { type: DataTypes.INTEGER },
 	fecha_alta: { type: DataTypes.DATE },
 	fecha_baja: { type: DataTypes.DATE },
 	nivel: { type: DataTypes.INTEGER }
