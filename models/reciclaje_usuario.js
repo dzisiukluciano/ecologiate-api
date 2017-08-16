@@ -2,12 +2,12 @@
 
 module.exports = function(sequelize, DataTypes) {
   var reciclaje_Usuario = sequelize.define('reciclaje_Usuario', {
-    id: { type: DataTypes.bigint, primaryKey: true, autoIncrement: true },
-    usuario_id: { type: DataTypes.int }, 
-    producto_id: { type: DataTypes.int },
-    punto_rec_id: { type: DataTypes.int},
-    cant_prod: { type: DataTypes.int},
-    fecha : { type: DataTypes.Date }
+    id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
+    usuario_id: { type: DataTypes.INTEGER }, 
+    producto_id: { type: DataTypes.INTEGER },
+    punto_rec_id: { type: DataTypes.INTEGER},
+    cant_prod: { type: DataTypes.INTEGER},
+    fecha : { type: DataTypes.DATE }
   }, 
   {
     classMethods: {

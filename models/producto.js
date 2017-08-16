@@ -4,13 +4,14 @@ module.exports = function(sequelize, DataTypes) {
   var producto = sequelize.define('producto', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
     nombre_producto: { type: DataTypes.STRING},
-    tipo_material: { type: DataTypes.int },
-    cant_material: { type: DataTypes.int },
-	fecha_alta : { type: DataTypes.datetime},
-	fecha_baja : { type: DataTypes.datetime},
-	codigo_barra: { type: DataTypes.bigint },
-	categoria_id : { type: DataTypes.int},
-	usuario_id : { type: DataTypes.int}
+    tipo_material: { type: DataTypes.INTEGER },
+    cant_material: { type: DataTypes.INTEGER },
+	fecha_alta : { type: DataTypes.DATE},
+	fecha_baja : { type: DataTypes.DATE},
+	codigo_barra: { type: DataTypes.BIGINT },
+	categoria_id : { type: DataTypes.INTEGER},
+	usuario_id : { type: DataTypes.INTEGER},
+	imagen : { type: DataTypes.STRING }
   }, 
   {
     classMethods: {

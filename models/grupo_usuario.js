@@ -3,8 +3,8 @@
 module.exports = function(sequelize, DataTypes) {
   var grupo_usuario = sequelize.define('grupo_usuario', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
-    grupo_id: { type: DataTypes.int}, 
-    usuario_id: { type: DataTypes.int}
+    grupo_id: { type: DataTypes.INTEGER}, 
+    usuario_id: { type: DataTypes.INTEGER}
   }, 
   {
     classMethods: {
@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
         fields: ['grupo_id']
       },
       {
-        name: 'idx_grupo_usuario_id',
+        name: 'idx_grupo_usuario',
         fields: ['usuario_id']
       }
     ]

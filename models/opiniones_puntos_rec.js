@@ -2,12 +2,12 @@
 
 module.exports = function(sequelize, DataTypes) {
   var opiniones_Puntos_Rec = sequelize.define('opiniones_Puntos_Rec', {
-    id: { type: DataTypes.int, primaryKey: true, autoIncrement: true},
-    usuario_id: { type: DataTypes.int}, 
-    punto_rec_id: { type: DataTypes.int},
-	puntuacion: { type: DataTypes.int},
-	comentario: { type: DataTypes.String},
-    fecha : { type: DataTypes.Date}
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    usuario_id: { type: DataTypes.INTEGER}, 
+    punto_rec_id: { type: DataTypes.INTEGER},
+	puntuacion: { type: DataTypes.INTEGER},
+	comentario: { type: DataTypes.STRING},
+    fecha : { type: DataTypes.DATE}
   }, 
   {
     classMethods: {

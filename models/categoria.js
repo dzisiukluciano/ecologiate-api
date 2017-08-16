@@ -3,7 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   var categoria = sequelize.define('categoria', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
-    description : { type: DataTypes.STRING }
+    descripcion : { type: DataTypes.STRING }
   }, 
   {
     classMethods: {

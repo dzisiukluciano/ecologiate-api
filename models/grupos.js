@@ -4,8 +4,8 @@ module.exports = function(sequelize, DataTypes) {
   var grupo = sequelize.define('grupo', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
     nombre : { type: DataTypes.STRING },
-    fecha_alta : { type: DataTypes.datetime},
-    usuario_id : { type: DataTypes.int }
+    fecha_alta : { type: DataTypes.DATE},
+    usuario_id : { type: DataTypes.INTEGER }
   }, 
   {
     classMethods: {

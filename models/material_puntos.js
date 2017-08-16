@@ -3,8 +3,8 @@
 module.exports = function(sequelize, DataTypes) {
   var material_puntos = sequelize.define('material_puntos', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
-    material_id: { type: DataTypes.int}, 
-    punto_rec_id: { type: DataTypes.int}
+    material_id: { type: DataTypes.INTEGER}, 
+    punto_rec_id: { type: DataTypes.INTEGER}
   }, 
   {
     classMethods: {

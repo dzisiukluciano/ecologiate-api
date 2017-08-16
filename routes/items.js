@@ -10,17 +10,17 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/:code', function(req, res, next) {
-  var codeParam = req.params.code;
-  models.Item.findOne({ where: {code: codeParam} }).then(item => {
+router.get('/:codeParam', function(req, res, next) {
+  var codeParametro = req.params.codeParam;
+  models.Item.findOne({ where: {code: codeParametro} }).then(item => {  /*  el code es el de la entidad  */
     if(item){
       console.log("item found");
       item.statusCode = 200; //200 ok
       res.send(item);
     }else{
       console.log("item not found");
-      //completo info de apis
-      restService.getJSON(codeParam, function(statusCode, result){
+      //completo info de apis ----- esto seria para el item
+      restService.getJSON(codeParametro, function(statusCode, result){
         var itemInfo = {};
         if(result.items != null && result.items.length > 0){
           var itemSearched = result.items[0];
@@ -31,9 +31,9 @@ router.get('/:code', function(req, res, next) {
             //do nothing Jon Snow
           }
         }
-        models.Item.create({ 
-          code: codeParam,
-          title: 'Pending item '+codeParam,
+        models.Item.create({ /* sino lo encontro lo crea en pending  */ 
+          code: codeParametro,
+          title: 'Pending item '+codeParametro,
           manageable: false,
           status: 'PENDING',
           description: itemInfo.description,
@@ -46,6 +46,6 @@ router.get('/:code', function(req, res, next) {
 });
 
 
-
-
 module.exports = router;
+
+

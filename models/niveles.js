@@ -3,8 +3,8 @@
 module.exports = function(sequelize, DataTypes) {
   var niveles = sequelize.define('niveles', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
-    description : { type: DataTypes.STRING},
-	cant_medallas : { type: DataTypes.int }
+    descripcion : { type: DataTypes.STRING},
+	cant_medallas : { type: DataTypes.INTEGER }
   }, 
   {
     classMethods: {

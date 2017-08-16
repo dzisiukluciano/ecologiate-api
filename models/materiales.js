@@ -2,12 +2,13 @@
 
 module.exports = function(sequelize, DataTypes) {
   var materiales = sequelize.define('materiales', {
-    id: { type: DataTypes.int, primaryKey: true, autoIncrement: true},
-	descripcion: { type: DataTypes.String},
-	equ_arboles: { type: DataTypes.int}, 
-    equ_energia: { type: DataTypes.int},
-	equ_agua: { type: DataTypes.int},
-    tipo_material_equ : { type: DataTypes.int}
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+	descripcion: { type: DataTypes.STRING},
+	equ_arboles: { type: DataTypes.INTEGER}, 
+    equ_energia: { type: DataTypes.INTEGER},
+	equ_agua: { type: DataTypes.INTEGER},
+    tipo_material_equ : { type: DataTypes.INTEGER},
+	puntos: { type: DataTypes.INTEGER}
   }, 
   {
     classMethods: {

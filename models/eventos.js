@@ -1,30 +1,30 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  var objetivo = sequelize.define('objetivo', {
+  var evento = sequelize.define('evento', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
     descripcion : { type: DataTypes.STRING},
 	producto_id : { type: DataTypes.INTEGER},
 	cant_producto : { type: DataTypes.INTEGER },
 	medallas_recompensa : { type: DataTypes.INTEGER }
-	fecha_alta: { type: DataTypes.DATE },
-	fecha_baja: { type: DataTypes.DATE },
+	fecha_inicio: { type: DataTypes.DATE },
+	fecha_fin: { type: DataTypes.DATE },
 	nivel: { type: DataTypes.INTEGER }
   }, 
   {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        //objetivo.belongsTo(models.User); por ejemplo
-        //o sino User.hasMany(models.objetivo);
+        //evento.belongsTo(models.User); por ejemplo
+        //o sino User.hasMany(models.evento);
       }
     },
     indexes: [
       {
-        name: 'idx_objetivo_producto_id',
+        name: 'idx_evento_producto_id',
         fields: ['producto_id']
       }
     ]
   });
-  return objetivo;
+  return evento;
 };

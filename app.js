@@ -48,10 +48,10 @@ app.use(function(err, req, res, next) {
 /********************************/
 var index = require('./routes/index');
 var users = require('./routes/users');
-var items = require('./routes/items');
+var items_service = require('./routes/items');
 
 app.use('/', index);
 app.use('/api/users', users);
-app.use('/api/items', items);
+app.use('/api/items', items_service);
 
 module.exports = app;

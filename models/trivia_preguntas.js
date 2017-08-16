@@ -2,8 +2,10 @@
 
 module.exports = function(sequelize, DataTypes) {
   var trivia_Preguntas = sequelize.define('trivia_Preguntas', {
-    id: { type: DataTypes.INT, primaryKey: true, autoIncrement: true },
-    description : { type: DataTypes.STRING }
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    descripcion : { type: DataTypes.STRING },
+	explicacion : { type: DataTypes.STRING },
+	imagen : { type: DataTypes.STRING }
   }, 
   {
     classMethods: {

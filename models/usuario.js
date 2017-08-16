@@ -3,13 +3,14 @@
 module.exports = function(sequelize, DataTypes) {
   var usuario = sequelize.define('usuario', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
-    objetivo_id: { type: DataTypes.int }, //indexado
+    objetivo_id: { type: DataTypes.INTEGER }, //indexado
     nombre: { type: DataTypes.STRING },
 	apellido: { type: DataTypes.STRING },
 	mail: { type: DataTypes.STRING },
-    nivel_usuario: { type: DataTypes.int },
-    cant_medallas: { type: DataTypes.int },
-	fecha_alta: { type: DataTypes.datetime }
+    nivel_usuario: { type: DataTypes.INTEGER },
+    cant_medallas: { type: DataTypes.INTEGER },
+	fecha_alta: { type: DataTypes.DATE },
+	fecha_baja: { type: DataTypes.DATE }
   }, 
   {
     classMethods: {

@@ -3,12 +3,12 @@
 module.exports = function(sequelize, DataTypes) {
   var puntos_recoleccion = sequelize.define('puntos_recoleccion', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
-    description : { type: DataTypes.STRING},
+    descripcion : { type: DataTypes.STRING},
 	direccion : { type: DataTypes.STRING},
-	latitud : { type: DataTypes.float },
-	longitud : { type: DataTypes.float },
-	usuario_id : { type: DataTypes.int },
-	estado : { type: DataTypes.STRING }
+	latitud : { type: DataTypes.FLOAT },
+	longitud : { type: DataTypes.FLOAT },
+	usuario_id : { type: DataTypes.INTEGER },
+	fecha_baja : { type: DataTypes.DATE }
   }, 
   {
     classMethods: {
