@@ -5,12 +5,14 @@ var restService = require('../services/restService');
 
 /* GET items listing. */
 router.get('/', function(req, res, next) {
+  res.send("deprecada");
   models.Item.findAll().then(function(data){
     res.send(data)
   });
 });
 
 router.get('/:codeParam', function(req, res, next) {
+  res.send("deprecada");
   var codeParametro = req.params.codeParam;
   models.Item.findOne({ where: {code: codeParametro} }).then(item => {  /*  el code es el de la entidad  */
     if(item){

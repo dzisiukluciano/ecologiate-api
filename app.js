@@ -49,11 +49,13 @@ app.use(function(err, req, res, next) {
 var index = require('./routes/index');
 var users = require('./routes/users');
 var items_service = require('./routes/items');
+var producto_service = require('./routes/producto');
 var reciclar_service = require('./routes/reciclaje_usuario')
 
 app.use('/', index);
 app.use('/api/users', users);
 app.use('/api/items', items_service);
+app.use('/api/producto', producto_service);
 app.use('/api/reciclar', reciclar_service);
 
 module.exports = app;
