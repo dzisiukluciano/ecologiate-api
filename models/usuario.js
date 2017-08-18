@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
 	mail: { type: DataTypes.STRING },
   nivel_usuario: { type: DataTypes.INTEGER },
   cant_medallas: { type: DataTypes.INTEGER },
-  puntos: { type: DataTypes.INTEGER },
+  //puntos: { type: DataTypes.INTEGER },
 	fecha_alta: { type: DataTypes.DATE },
 	fecha_baja: { type: DataTypes.DATE }
   }, 
