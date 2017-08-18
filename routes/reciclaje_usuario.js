@@ -61,11 +61,13 @@ router.get('/:code/:user/:puntorec/:cant', function(req, res, next) {
 
       }else{
         console.log('producto no encontrado');
+        res.send('Producto no encontrado');
       }
     });
 
     }else{
       console.log('usuario no encontrado');
+      res.send('Usuario no encontrado');
     }
   });
 });
