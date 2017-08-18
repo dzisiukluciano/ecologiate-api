@@ -19,6 +19,9 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
         //producto.belongsTo(models.User); por ejemplo
         //o sino User.hasMany(models.producto);
+        producto.hasOne(materiales);
+        producto.hasOne(categoria);
+        producto.hasOne(usuario_id);
       }
     },
     indexes: [
