@@ -41,19 +41,20 @@ router.get('/:code/:user/:puntorec/:cant', function(req, res, next) {
 
         //armo respuesta respuesta
         var respuesta = new Map();
-        respuesta.set('puntos_anteriores',user.puntos);
+        //respuesta.set('puntos_anteriores',user.puntos);
         respuesta.set('puntos_sumados', producto.tipo_material.puntos * producto.cant_material * cantParam);
         respuesta.set('equ_arboles',producto.tipo_material.equ_arboles * producto.cant_material * cantParam);
         respuesta.set('equ_energia',producto.tipo_material.equ_energia * producto.cant_material * cantParam);
         respuesta.set('equ_agua',producto.tipo_material.equ_agua * producto.cant_material * cantParam);
 
         //actualizo los puntos del usuario
+        /*
         user.updateAttributes({puntos: user.puntos + producto.tipo_material.puntos * producto.cant_material * cantParam})
         .then((self) => {
           return self;
         }).catch(e => {
           console.log('Error al actualizar puntos del usuario.\n' + e);
-        });
+        });*/
         //.success(console.log("se actualizaron los puntos del usuario correctamente");
 
         //envio respuesta
