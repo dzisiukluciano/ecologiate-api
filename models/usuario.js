@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
 	mail: { type: DataTypes.STRING },
   nivel_usuario: { type: DataTypes.INTEGER },
   cant_medallas: { type: DataTypes.INTEGER },
-  //puntos: { type: DataTypes.INTEGER },
+  puntos: { type: DataTypes.INTEGER },
 	fecha_alta: { type: DataTypes.DATE },
 	fecha_baja: { type: DataTypes.DATE }
   }, 
@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
         //usuario.belongsTo(models.User); por ejemplo
         //o sino User.hasMany(models.usuario);
-        usuario.hasOne(objetivo);
+        //usuario.hasOne(objetivo);
       }
     },
     indexes: [

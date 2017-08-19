@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
         //categoria.belongsTo(models.User); por ejemplo
         //o sino User.hasMany(models.categoria);
-        categoria.hasMany(producto);
+        //categoria.hasMany(producto);
       }
     }
   });

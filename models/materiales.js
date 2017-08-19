@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
         //materiales.belongsTo(models.User); por ejemplo
         //o sino User.hasMany(models.materiales);
-        materiales.hasMany(producto);
+        materiales.hasMany(models.producto);
       }
     },
     indexes: [
