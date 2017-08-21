@@ -52,6 +52,7 @@ var items_service = require('./routes/items');
 var producto_service = require('./routes/producto');
 var reciclar_service = require('./routes/reciclaje_usuario')
 var busqueda_manual = require('./routes/busqueda_manual')
+var alta_producto = require('./routes/alta_producto')
 
 app.use('/', index);
 app.use('/api/users', users);
@@ -59,5 +60,6 @@ app.use('/api/items', items_service);
 app.use('/api/producto', producto_service);
 app.use('/api/reciclar', reciclar_service);
 app.use('/api/busqueda_manual', busqueda_manual);
+app.use('/api/alta_producto', alta_producto);
 
 module.exports = app;
