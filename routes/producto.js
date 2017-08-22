@@ -20,12 +20,12 @@ router.get('/:codeParam', function(req, res, next) {
 			if(material){
 			  console.log('material encontrado!');
 			  models.categoria.findOne({ where: {id: producto.categoria_id} }).then(categoria => { 
-				 if(material){
+				 if(categoria){
 					 console.log('categoria encontrada!');
 					 res.send({producto:producto, material:material, categoria:categoria, status_code:200});
 				 }else{
-				  console.log("material no encontrado");
-				  res.send({status_code:404, mensaje:'Material no encontrado'});
+				  console.log("categoría no encontrada");
+				  res.send({status_code:404, mensaje:'Categoría no encontrada'});
 				}
 			  });
 			}else{
