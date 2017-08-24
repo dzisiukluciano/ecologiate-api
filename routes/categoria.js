@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/descripcion', function(req, res, next) {
+router.get('/:descripcion', function(req, res, next) {
   var descParam = req.params.descripcion;
   
 //busco categoria

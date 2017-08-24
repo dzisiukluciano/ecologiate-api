@@ -25,8 +25,8 @@ router.post('/:code/:user/:puntorec/:cant', function(req, res, next) {
 	//busco producto
     models.producto.findOne({ where: {codigo_barra: codeParam} }).then(producto => {
       if(producto){
-		console.log('producto encontrado!');
-		models.materiales.findOne({ where: {id: producto.tipo_material} }).then(material => {
+		    console.log('producto encontrado!');
+		    models.materiales.findOne({ where: {id: producto.tipo_material} }).then(material => {
         if(material){
       			console.log('material encontrado!');
       			producto.statusCode = 200; //200 ok
@@ -48,9 +48,9 @@ router.post('/:code/:user/:puntorec/:cant', function(req, res, next) {
         			  //armo respuesta 
         			  var respuesta = {};
         			  
-        			  console.log(producto.tipo_material.puntos);
-        			  console.log(producto.cant_material);
-        			  console.log(cantParam);
+        			  //console.log(producto.tipo_material.puntos);
+        			  //console.log(producto.cant_material);
+        			  //console.log(cantParam);
 
         			  respuesta = {status_code:200,
                             puntos_anteriores: user.puntos,
