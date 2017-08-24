@@ -50,9 +50,11 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var items_service = require('./routes/items');
 var producto_service = require('./routes/producto');
-var reciclar_service = require('./routes/reciclaje_usuario')
-var busqueda_manual = require('./routes/busqueda_manual')
-var alta_producto = require('./routes/alta_producto')
+var reciclar_service = require('./routes/reciclaje_usuario');
+var busqueda_manual = require('./routes/busqueda_manual');
+var alta_producto = require('./routes/alta_producto');
+var categoria_service = require('./routes/categoria');
+
 
 app.use('/', index);
 app.use('/api/users', users);
@@ -61,5 +63,6 @@ app.use('/api/producto', producto_service);
 app.use('/api/reciclar', reciclar_service);
 app.use('/api/busqueda_manual', busqueda_manual);
 app.use('/api/alta_producto', alta_producto);
+app.use('/api/categoria', categoria_service);
 
 module.exports = app;
