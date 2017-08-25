@@ -13,7 +13,7 @@ router.get('/:descripcion', function(req, res, next) {
   var descParam = req.params.descripcion;
   
 //busco categoria
-  models.categoria.findAll({ where: {desc:{$like: '%'+descParam+'%'} } }).then(categorias => {
+  models.categoria.findAll({ where: {descripcion:{$like: '%'+descParam+'%'} } }).then(categorias => {
     if(categorias){
     	console.log('categorias encontradas!');
     	categorias.statusCode = 200; //200 ok

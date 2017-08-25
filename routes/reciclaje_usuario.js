@@ -7,11 +7,12 @@ router.get('/', function(req, res, next) {
   res.send('Deprecada');
 });
 
-router.post('/:code/:user/:puntorec/:cant', function(req, res, next) {
-  var codeParam = req.params.code;
-  var userParam = req.params.user;
-  var puntorecParam= req.params.puntorec;
-  var cantParam = req.params.cant;
+//router.post('/:code/:user/:puntorec/:cant', function(req, res, next) {
+router.post('/reciclar_producto', function(req, res, next) {
+  var codeParam = req.body.code;
+  var userParam = req.body.user;
+  var puntorecParam= req.body.puntorec;
+  var cantParam = req.body.cant;
   
 //busco usuario
   models.usuario.findOne({ where: {id: userParam} }).then(user => {
