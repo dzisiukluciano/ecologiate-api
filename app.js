@@ -54,6 +54,7 @@ var reciclar_service = require('./routes/reciclaje_usuario');
 var busqueda_manual = require('./routes/busqueda_manual');
 var alta_producto = require('./routes/alta_producto');
 var categoria_service = require('./routes/categoria');
+var alta_punto_rec = require('./routes/alta_punto_rec');
 
 
 app.use('/', index);
@@ -64,5 +65,6 @@ app.use('/api/reciclar', reciclar_service);
 app.use('/api/busqueda_manual', busqueda_manual);
 app.use('/api/alta_producto', alta_producto);
 app.use('/api/categoria', categoria_service);
+app.use('/api/alta_punto_rec', alta_punto_rec);
 
 module.exports = app;

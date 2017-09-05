@@ -3,6 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   var trivia_respondidas = sequelize.define('trivia_respondidas', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+	id_sesion: { type: DataTypes.INTEGER },
     id_pregunta: { type: DataTypes.INTEGER },
     usuario_id : { type: DataTypes.INTEGER },
 	correcta: { type: DataTypes.STRING}
