@@ -1,11 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var models  = require('../models');
+var sequelize = models.sequelize;
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('Deprecada');
-});
+
 
 //router.post('/:code/:user/:puntorec/:cant', function(req, res, next) {
 router.post('/reciclar_producto', function(req, res, next) {
@@ -18,7 +16,6 @@ router.post('/reciclar_producto', function(req, res, next) {
   models.usuario.findOne({ where: {id: userParam} }).then(user => {
     if(user){
       console.log('usuario encontrado!');
-      user.statusCode = 200; //200 ok
     
     //models.producto.belongsTo(models.materiales,{foreignKey: 'tipo_material', targetKey: 'id'});
     //models.materiales.hasMany(models.producto);
@@ -30,9 +27,19 @@ router.post('/reciclar_producto', function(req, res, next) {
 		    models.materiales.findOne({ where: {id: producto.tipo_material} }).then(material => {
         if(material){
       			console.log('material encontrado!');
-      			producto.statusCode = 200; //200 ok
       			console.log('El usuario ' + user.nombre + ' ' + user.apellido + ' reciclara el producto ' + producto.nombre_producto);
       			//inserto registro del reciclaje
+            var respuesta = {};
+            var puntosSumados = material.puntos * producto.cant_material * cantParam;
+            respuesta = {
+              status_code:200,
+              puntos_anteriores: user.puntos,
+              puntos_sumados: puntosSumados,
+              equ_arboles: material.equ_arboles * producto.cant_material * cantParam,
+              equ_energia: material.equ_energia * producto.cant_material * cantParam,
+              equ_agua: material.equ_agua * producto.cant_material * cantParam
+            };
+
       			sequelize.transaction(function (t) {
               models.reciclaje_Usuario.create({
         			  usuario_id: userParam, 
@@ -43,26 +50,17 @@ router.post('/reciclar_producto', function(req, res, next) {
         			}).then(() => {
         			  //valido la cantidad de producto reciclado
         			  if(cantParam <= 0){
-        				cantParam = 1;
+        				  cantParam = 1;
         			  }
-
-        			  //armo respuesta 
-        			  var respuesta = {};
+        			  
         			  
         			  //console.log(producto.tipo_material.puntos);
         			  //console.log(producto.cant_material);
         			  //console.log(cantParam);
 
-        			  respuesta = {status_code:200,
-                            puntos_anteriores: user.puntos,
-                            puntos_sumados: material.puntos * producto.cant_material * cantParam,
-                            equ_arboles: material.equ_arboles * producto.cant_material * cantParam,
-                            equ_energia: material.equ_energia * producto.cant_material * cantParam,
-                            equ_agua: material.equ_agua * producto.cant_material * cantParam};
-
         			  //actualizo los puntos del usuario
         			  
-        			  user.updateAttributes({puntos: user.puntos + producto.cant_material * cantParam});
+        			  user.updateAttributes({puntos: user.puntos + puntosSumados});
         			  /*.then((self) => {
         				  console.log(respuesta);
         				  //res.send(respuesta);
@@ -75,6 +73,7 @@ router.post('/reciclar_producto', function(req, res, next) {
       			});
           }).then(function (result) {
             console.log('Transacción se completo exitosamente!');
+            console.log(respuesta);
             res.send(respuesta);
           }).catch(function (err) {
             console.log('Error: ' + err);
