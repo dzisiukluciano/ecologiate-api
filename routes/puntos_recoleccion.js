@@ -18,6 +18,22 @@ router.get('/', function(req, res, next) {
 	});
 });
 
+router.post('/', function(req, res, next) {
+	var materiales = req.body.materiales;
+	var user = req.body.user;
+	var latitud= req.body.latitud;
+	var longitud = req.body.longitud;
+
+	console.log("Body:");
+	console.log(req.body);
+
+	if(materiales != undefined && materiales.length > 0){
+		for(var i = 0; i < materiales.length; i++){
+			console.log("material: " + materiales[i]);
+		}
+	}
+	res.send("tamo activo");
+});
 
 module.exports = router;
 
