@@ -4,6 +4,11 @@ var models  = require('../models');
 var restService = require('../services/restService');
 var sequelize = models.sequelize;
 
+/* examples
+	/api/alta_producto (post) => pasandole nombre, tipo_material, cant_material, categoria_id, usuario_id e imagen inserta nuevo producto
+	
+*/
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('Deprecada');

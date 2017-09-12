@@ -5,7 +5,6 @@ var sequelize = models.sequelize;
 
 
 
-//router.post('/:code/:user/:puntorec/:cant', function(req, res, next) {
 router.post('/reciclar_producto', function(req, res, next) {
   var codeParam = req.body.code;
   var userParam = req.body.user;
@@ -53,23 +52,10 @@ router.post('/reciclar_producto', function(req, res, next) {
         				  cantParam = 1;
         			  }
         			  
-        			  
-        			  //console.log(producto.tipo_material.puntos);
-        			  //console.log(producto.cant_material);
-        			  //console.log(cantParam);
-
         			  //actualizo los puntos del usuario
         			  
         			  user.updateAttributes({puntos: user.puntos + puntosSumados});
-        			  /*.then((self) => {
-        				  console.log(respuesta);
-        				  //res.send(respuesta);
-                  return respuesta;
-        					//return self;
-        			  }).catch(e => {
-        				console.log('Error al actualizar puntos del usuario.\n' + e);
-        			  });*/
-        			  //.success(console.log("se actualizaron los puntos del usuario correctamente");
+
       			});
           }).then(function (result) {
             console.log('Transacción se completo exitosamente!');

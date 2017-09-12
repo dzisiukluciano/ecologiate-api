@@ -3,6 +3,11 @@ var router = express.Router();
 var models  = require('../models');
 var sequelize = models.sequelize;
 
+/* examples
+	/api/busqueda_manual/:nombre => busca que el nombre del producto contenga :nombre
+	
+*/
+
 router.get('/:nombreParam', function(req, res, next) {
   var nombreParametro = req.params.nombreParam;
   if(nombreParametro)
