@@ -13,6 +13,11 @@ var sequelize = models.sequelize;
 
 router.get('/', function(req, res, next) {
 	console.log('Búsqueda de puntos de recolección');
+	//devuelvo todos los puntos
+	models.puntos_recoleccion.findAll().then(function(data){
+		res.send(data);
+	});
+	/*
 	var materiales = req.query.materiales;
 	if(materiales.length >0){
 		//busco todos los puntos que esten asociados a los materiales recibidos
@@ -30,6 +35,7 @@ router.get('/', function(req, res, next) {
 			res.send(data);
 		});
 	}
+	*/
 	
 });
 
