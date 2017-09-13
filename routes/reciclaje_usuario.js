@@ -6,7 +6,7 @@ var sequelize = models.sequelize;
 
 
 router.post('/reciclar_producto', function(req, res, next) {
-  var codeParam = req.body.code;
+  var idProducto = req.body.product_id;
   var userParam = req.body.user;
   var puntorecParam= req.body.puntorec;
   var cantParam = req.body.cant;
@@ -20,7 +20,7 @@ router.post('/reciclar_producto', function(req, res, next) {
     //models.materiales.hasMany(models.producto);
 	
 	//busco producto
-    models.producto.findOne({ where: {codigo_barra: codeParam} }).then(producto => {
+    models.producto.findOne({ where: {id: idProducto} }).then(producto => {
       if(producto){
 		    console.log('producto encontrado!');
 		    models.materiales.findOne({ where: {id: producto.tipo_material} }).then(material => {
