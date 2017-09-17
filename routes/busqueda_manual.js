@@ -3,16 +3,9 @@ var router = express.Router();
 var models  = require('../models');
 var sequelize = models.sequelize;
 
-router.get('/:nombreParam', function(req, res, next) {
-  var nombreParametro = req.params.nombreParam;
-  if(nombreParametro)
-  	nombreParametro = nombreParametro.toLowerCase(); //lo paso a minúscula
-  
-  models.producto.findOne({ 
-  		where: 
-  		sequelize.where(sequelize.fn('LOWER',sequelize.col('nombre_producto')),{$like:'%'+nombreParametro+'%'}) 
-  	})
-  	.then(producto => { 
+router.get('/:idParam', function(req, res, next) {
+  var idParametro = req.params.idParam;
+	models.producto.findOne({ where: {id: idParametro} }).then(producto => {  
 	    if(producto){
 			console.log("producto encontrado");
 			models.materiales.findOne({ where: {id: producto.tipo_material} }).then(material => {
