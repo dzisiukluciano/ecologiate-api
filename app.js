@@ -55,7 +55,6 @@ var reciclar_service = require('./routes/reciclaje_usuario');
 var busqueda_manual_service = require('./routes/busqueda_manual');
 var alta_producto_service = require('./routes/alta_producto');
 var categoria_service = require('./routes/categoria');
-var alta_punto_rec = require('./routes/alta_punto_rec');
 var material_service = require('./routes/materiales');
 var busqueda_productos_por_nombre = require('./routes/busqueda_productos_por_nombre');
 
@@ -69,7 +68,6 @@ app.use('/api/reciclar', reciclar_service);
 app.use('/api/busqueda_manual', busqueda_manual_service);
 app.use('/api/alta_producto', alta_producto_service);
 app.use('/api/categoria', categoria_service);
-app.use('/api/alta_punto_rec', alta_punto_rec);
 app.use('/api/material', material_service);
 app.use('/api/busqueda_productos_por_nombre', busqueda_productos_por_nombre);
 

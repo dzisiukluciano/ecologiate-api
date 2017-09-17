@@ -5,9 +5,8 @@ var sequelize = models.sequelize;
 
 
 
-//router.post('/:code/:user/:puntorec/:cant', function(req, res, next) {
 router.post('/reciclar_producto', function(req, res, next) {
-  var codeParam = req.body.code;
+  var idProducto = req.body.product_id;
   var userParam = req.body.user;
   var puntorecParam= req.body.puntorec;
   var cantParam = req.body.cant;
@@ -21,7 +20,7 @@ router.post('/reciclar_producto', function(req, res, next) {
     //models.materiales.hasMany(models.producto);
 	
 	//busco producto
-    models.producto.findOne({ where: {codigo_barra: codeParam} }).then(producto => {
+    models.producto.findOne({ where: {id: idProducto} }).then(producto => {
       if(producto){
 		    console.log('producto encontrado!');
 		    models.materiales.findOne({ where: {id: producto.tipo_material} }).then(material => {
@@ -53,23 +52,10 @@ router.post('/reciclar_producto', function(req, res, next) {
         				  cantParam = 1;
         			  }
         			  
-        			  
-        			  //console.log(producto.tipo_material.puntos);
-        			  //console.log(producto.cant_material);
-        			  //console.log(cantParam);
-
         			  //actualizo los puntos del usuario
         			  
         			  user.updateAttributes({puntos: user.puntos + puntosSumados});
-        			  /*.then((self) => {
-        				  console.log(respuesta);
-        				  //res.send(respuesta);
-                  return respuesta;
-        					//return self;
-        			  }).catch(e => {
-        				console.log('Error al actualizar puntos del usuario.\n' + e);
-        			  });*/
-        			  //.success(console.log("se actualizaron los puntos del usuario correctamente");
+
       			});
           }).then(function (result) {
             console.log('Transacción se completo exitosamente!');

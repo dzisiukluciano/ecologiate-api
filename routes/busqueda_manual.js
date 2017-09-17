@@ -3,6 +3,7 @@ var router = express.Router();
 var models  = require('../models');
 var sequelize = models.sequelize;
 
+
 router.get('/:idParam', function(req, res, next) {
   var idParametro = req.params.idParam;
 	models.producto.findOne({ where: {id: idParametro} }).then(producto => {  
