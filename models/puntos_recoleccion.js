@@ -8,7 +8,9 @@ module.exports = function(sequelize, DataTypes) {
 	latitud : { type: DataTypes.FLOAT },
 	longitud : { type: DataTypes.FLOAT },
 	usuario_id : { type: DataTypes.INTEGER },
-	fecha_baja : { type: DataTypes.DATE }
+	fecha_baja : { type: DataTypes.DATE },
+	admin_area : { type: DataTypes.STRING },
+	pais : { type: DataTypes.STRING }
   }, 
   {
     classMethods: {
