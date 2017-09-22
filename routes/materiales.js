@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 router.get('/:descripcion', function(req, res, next) {
   var descParam = req.params.descripcion;
   
-//busco categoria
+//busco materiales
   models.materiales.findAll({ where: {descripcion:{$like: '%'+descParam+'%'} } }).then(materiales => {
     if(materiales){
     	console.log('materiales encontrados!');
