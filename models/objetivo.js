@@ -4,19 +4,18 @@ module.exports = function(sequelize, DataTypes) {
   var objetivo = sequelize.define('objetivo', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
     descripcion : { type: DataTypes.STRING},
-	producto_id : { type: DataTypes.INTEGER},
-	cant_producto : { type: DataTypes.INTEGER },
-	medallas_recompensa : { type: DataTypes.INTEGER },
-	fecha_alta: { type: DataTypes.DATE },
-	fecha_baja: { type: DataTypes.DATE },
-	nivel: { type: DataTypes.INTEGER }
+  	producto_id : { type: DataTypes.INTEGER},
+  	cant_producto : { type: DataTypes.INTEGER },
+  	medallas_recompensa : { type: DataTypes.INTEGER },
+  	fecha_alta: { type: DataTypes.DATE },
+  	fecha_baja: { type: DataTypes.DATE },
+  	nivel: { type: DataTypes.INTEGER }
   }, 
   {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        //objetivo.belongsTo(models.User); por ejemplo
-        //o sino User.hasMany(models.objetivo);
+        
       }
     },
     indexes: [

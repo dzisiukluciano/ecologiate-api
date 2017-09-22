@@ -1,11 +1,11 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  var trivia_Respuestas = sequelize.define('trivia_Respuestas', {
+  var trivia_respuestas = sequelize.define('trivia_respuestas', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     id_pregunta: { type: DataTypes.INTEGER },
     respuesta : { type: DataTypes.STRING },
-	correcta: { type: DataTypes.STRING, defaultValue: false}
+    correcta: { type: DataTypes.BOOLEAN, defaultValue: false}
   }, 
   {
     classMethods: {
@@ -16,5 +16,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return trivia_Respuestas;
+  return trivia_respuestas;
 };

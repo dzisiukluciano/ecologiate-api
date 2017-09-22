@@ -5,15 +5,13 @@ module.exports = function(sequelize, DataTypes) {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
     objetivo_id: { type: DataTypes.INTEGER}, 
     usuario_id: { type: DataTypes.INTEGER},
-	fecha_inicio: { type: DataTypes.DATE},
-	cumplido :{ type: DataTypes.STRING}
+    fecha_inicio: { type: DataTypes.DATE},
+    cumplido :{ type: DataTypes.STRING}
   }, 
   {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
-        //objetivo_usuario.belongsTo(models.User); por ejemplo
-        //o sino User.hasMany(models.objetivo_usuario);
+
       }
     },
     indexes: [

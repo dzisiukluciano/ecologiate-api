@@ -1,14 +1,19 @@
 {
   "development": {
-    "username": "resbtxylqdcrze",
-    "password": "648ee803ef42204a54623f10f1d573f2fa97d121565377b9ca059d5c31996736",
-    "database": "dd99bceu99ufug",
-    "host": "ec2-54-235-80-137.compute-1.amazonaws.com",
+    "username": "postgres",
+    "password": "admin",
+    "database": "ecologiate",
+    "host": "localhost",
     "dialect": "postgres",
     "protocol": "postgres",
     "port": "5432",
     "dialectOptions": {
-        "ssl": true
+        "ssl": false
+    },
+    "define": {
+        "underscored": true,
+        "timestamps": false,
+        "freezeTableName": true
     }
   },
   "test": {
@@ -21,6 +26,11 @@
     "port": "5432",
     "dialectOptions": {
         "ssl": true
+    },
+    "define": {
+        "underscored": true,
+        "timestamps": false,
+        "freezeTableName": true
     }
   },
   "production": {
@@ -33,6 +43,11 @@
     "port": "5432",
     "dialectOptions": {
         "ssl": true
+    },
+    "define": {
+        "underscored": true,
+        "timestamps": false,
+        "freezeTableName": true
     }
   }
 }

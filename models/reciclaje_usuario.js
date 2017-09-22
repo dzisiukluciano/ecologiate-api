@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  var reciclaje_Usuario = sequelize.define('reciclaje_Usuario', {
+  var reciclaje_usuario = sequelize.define('reciclaje_usuario', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
     usuario_id: { type: DataTypes.INTEGER }, 
     producto_id: { type: DataTypes.INTEGER },
@@ -10,6 +10,11 @@ module.exports = function(sequelize, DataTypes) {
     fecha : { type: DataTypes.DATE }
   }, 
   {
+    hooks: {
+      beforeCreate: (reciclaje, options) => {
+        reciclaje.fecha = new Date();
+      }
+    },
     classMethods: {
       associate: function(models) {
         // associations can be defined here
@@ -18,5 +23,5 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  return reciclaje_Usuario;
+  return reciclaje_usuario;
 };
