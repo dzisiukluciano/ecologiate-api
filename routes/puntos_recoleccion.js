@@ -6,6 +6,7 @@ var sequelize = models.sequelize;
 /* examples
 	/api/pdr   	=> devuelve todos los pdr
 	/api/pdr?materiales=1,5,7	=> devuelve todos los puntos que tengan esos materiales
+	/api/pdr?materiales=1,5,7&area=Buenos%20Aires&pais=Argentina	=> devuelve todos los puntos que tengan esos materiales, pais y area
 	/api/pdr (post) => pasandole descripcion, direccion, latitud, longitud, usuario y materiales inserta nuevo punto de recoleccion
 	/api/pdr/review => pasandole usuario, punto_rec_id, puntuacion y comentario inserta nueva review
 */
@@ -13,51 +14,44 @@ var sequelize = models.sequelize;
 
 router.get('/', function(req, res, next) {
 	console.log('Búsqueda de puntos de recolección');
-	var materiales = [];
-	materiales = req.query.materiales;
+	var materialesParam = req.query.materiales;
+	var area = req.query.area;
+	var pais = req.query.pais;
 	console.log(materiales);
-	/*var array2 = [];
-	for(var i = 0; i < materiales.length; i++){
-		array2.push(materiales[i]);
-	};*/
-	if(materiales != undefined && materiales.length >0){
-		//busco todos los puntos que esten asociados a los materiales recibidos
-		console.log('busco puntos segun materiales');
-		//separo los valores obtenidos en un array
-		var mat = materiales.split(",");
-		//models.material_puntos.findAll({attributes: ['punto_rec_id'] },{where: {material_id: {$in:materiales} }}, { raw: true }).then(puntos_material => {
-			models.material_puntos.findAll({where: {material_id: {$in:mat} }}).then(puntos_material => {
-			//busco todos los datos de los puntos
-			console.log('obtuve resultados');
-			if(puntos_material != undefined && puntos_material.length > 0){
-				console.log('encontro puntos');
 
-				var array = [];
-				puntos_material.forEach((puntoMaterialItem) => {
-				    //console.log(puntoMaterialItem.get({
-				    //    plain: true
-				    //}));
-				    array.push(puntoMaterialItem.punto_rec_id);
-				    /*array.push(puntoMaterialItem.get({
-				        plain: true
-				    }));*/
-				});
-				console.log(array);
-				//console.log(puntos_material.get({ plain: true}));
-				models.puntos_recoleccion.findAll({where:{id: {$in: array}}}).then(puntos => {
-					res.send(puntos);
-				});
-			}else{
-				res.send({status_code:404, mensaje:'No hay puntos para los materiales indicados'});
-			}
-		});
-	}else{
-		//devuelvo todos los puntos
-		models.puntos_recoleccion.findAll().then(function(data){
-			res.send(data);
-		});
+	var wherePdr = {}; //where sobre atributos del pdr
+	if(area != undefined && area!=null && area.length >0){
+		wherePdr.area = area;
 	}
-	
+	if(pais != undefined && pais!=null && pais.length >0){
+		wherePdr.pais = pais;
+	}
+
+	var whereMaterial = {}; //where sobre el join
+	if(materialesParam != undefined && materialesParam!=null && materialesParam.length >0){
+		var materiales = materialesParam.split(",");
+		whereMaterial = { id: { $in : materiales } }
+	}
+
+	models.punto_recoleccion.findAll({
+		//condiciones sobre el pdr
+		where : wherePdr,
+		attributes: ['id','descripcion','direccion','latitud','longitud'],
+		//asociaciones con condiciones
+		include: [
+			{model: models.material, as: 'materiales', where: whereMaterial, attributes:['id','descripcion']},
+			{model: models.usuario, as: 'usuario_alta', attributes:['id','nombre','apellido']}
+		]
+	})
+	.then(puntos => {
+		if(puntos && puntos.length>0){
+			res.setHeader('Content-Type', 'application/json');
+			res.send({puntos: puntos, status_code:200});
+		}else{
+			console.log("pdrs no encontrados");
+	      	res.send({status_code:404, mensaje:'No hay resultados'});
+		}
+	});
 });
 
 //alta de punto rec
