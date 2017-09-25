@@ -3,12 +3,12 @@
 module.exports = function(sequelize, DataTypes) {
   var campania = sequelize.define('campania', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
+    titulo : { type: DataTypes.STRING},
     descripcion : { type: DataTypes.STRING},
-  	cant_producto : { type: DataTypes.INTEGER },
-  	recompensa : { type: DataTypes.INTEGER },
+  	cant_meta : { type: DataTypes.INTEGER },
+  	recompensa : { type: DataTypes.INTEGER }, //es un numero que te da de puntos
   	fecha_inicio: { type: DataTypes.DATE },
-  	fecha_fin: { type: DataTypes.DATE },
-  	nivel: { type: DataTypes.INTEGER }
+  	fecha_fin: { type: DataTypes.DATE }
   },
   {
     indexes: [
@@ -19,16 +19,18 @@ module.exports = function(sequelize, DataTypes) {
       {
         name: 'idx_campania_fecha_fin',
         fields: ['fecha_fin']
-      },
-      {
-        name: 'idx_campania_nivel',
-        fields: ['nivel']
       }
     ]
   });
   campania.associate = function (models) {
     //esto me agrega la columna producto_id a la tabla, y el atributo producto al model
     campania.belongsTo(models.producto, {as: 'producto'});
+    //esto me agrega la columna material_id a la tabla, y el atributo material al model
+    campania.belongsTo(models.material, {as: 'material'});
+    //esto me agrega la columna medalla_id a la tabla, y el atributo medalla al model
+    campania.belongsTo(models.medalla, {as: 'medalla'});
+    //esto me crea la tabla intermedia campania_usuario, y la lista de usuarios que lo cumplieron al model campania
+    campania.belongsToMany(models.usuario, {as: 'usuarios_cumplidores', through: 'campania_usuario'});
   };
   return campania;
 };

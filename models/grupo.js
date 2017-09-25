@@ -3,10 +3,7 @@
 module.exports = function(sequelize, DataTypes) {
   var grupo = sequelize.define('grupo', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
-    nombre : { type: DataTypes.STRING },
-    fecha_alta : { type: DataTypes.DATE },
-    fecha_modificacion : { type: DataTypes.DATE },
-    fecha_baja : { type: DataTypes.DATE }
+    nombre : { type: DataTypes.STRING, allowNull: false, unique: true }
   }, 
   {
     timestamps: true, //me agrega el createdAt y updatedAt

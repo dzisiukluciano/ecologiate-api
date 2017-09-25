@@ -4,14 +4,27 @@ module.exports = function(sequelize, DataTypes) {
   var nivel = sequelize.define('nivel', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
     descripcion : { type: DataTypes.STRING},
-    cant_medallas : { type: DataTypes.INTEGER }
-  }, 
+    imagen_avatar : { type: DataTypes.STRING},
+    puntos_desde : { type: DataTypes.INTEGER },
+    puntos_hasta : { type: DataTypes.INTEGER }
+  },
   {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
+    indexes: [
+      {
+        name: 'idx_nivel_puntos_desde',
+        fields: ['puntos_desde']
+      },
+      {
+        name: 'idx_nivel_puntos_hasta',
+        fields: ['puntos_hasta']
       }
-    }
+    ]
   });
+  nivel.associate = function (models) {
+    //esto me crea la columna nivel_id en usuario, y la lista de usuarios en el model nivel
+    nivel.hasMany(models.usuario, {as: 'usuarios', foreignKey: 'nivel_id'});
+    //esto me crea la columna nivel_id en objetivo, y la lista de objetivos en el model nivel
+    nivel.hasMany(models.objetivo, {as: 'objetivos', foreignKey: 'nivel_id'});
+  };
   return nivel;
 };

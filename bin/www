@@ -27,7 +27,7 @@ var server = http.createServer(app);
  */
 
 //para crear las tablas automáticamente
-var crear_tablas = true;
+var crear_tablas = false;
 
 if(crear_tablas){
   models.sequelize.sync({ force: true });

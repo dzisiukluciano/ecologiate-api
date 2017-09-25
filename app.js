@@ -41,6 +41,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//para servir imágenes
+app.use('/images', express.static('images'))
+
 /********************************/
 /********************************/
 //recursos de la api

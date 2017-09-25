@@ -101,9 +101,10 @@ router.post('/', function(req, res, next) {
 
 //review del punto
 router.post('/review', function(req, res, next) {
+	//TODO borrar el review anterior de ese usuario en ese punto, si existe
   	var usuario_param  = req.body.usuario;
   	var punto_rec_id_param = req.body.punto_rec_id;
-  	var puntuacion_param = req.body.puntuacion;//boolean??
+  	var puntuacion_param = req.body.puntuacion; //boolean??
   	var comentario_param = req.body.comentario;
 
   	//busco usuario
