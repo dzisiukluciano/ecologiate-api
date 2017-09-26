@@ -20,56 +20,45 @@ router.post('/reciclar_producto', function(req, res, next) {
     //models.materiales.hasMany(models.producto);
 	
 	//busco producto
-    models.producto.findOne({ where: {id: idProducto} }).then(producto => {
+    models.producto.findOne({ where: {id: idProducto}, include: [{model: models.material, as:'material'}] }).then(producto => {
       if(producto){
 		    console.log('producto encontrado!');
-		    models.materiales.findOne({ where: {id: producto.tipo_material} }).then(material => {
-        if(material){
-      			console.log('material encontrado!');
-      			console.log('El usuario ' + user.nombre + ' ' + user.apellido + ' reciclara el producto ' + producto.nombre_producto);
-      			//inserto registro del reciclaje
-            var respuesta = {};
-            var puntosSumados = material.puntos * producto.cant_material * cantParam;
-            respuesta = {
-              status_code:200,
-              puntos_anteriores: user.puntos,
-              puntos_sumados: puntosSumados,
-              equ_arboles: material.equ_arboles * producto.cant_material * cantParam,
-              equ_energia: material.equ_energia * producto.cant_material * cantParam,
-              equ_agua: material.equ_agua * producto.cant_material * cantParam
-            };
-
-      			sequelize.transaction(function (t) {
-              return models.reciclaje_Usuario.create({
-        			  usuario_id: userParam, 
-        			  producto_id: producto.id,
-        			  punto_rec_id: puntorecParam,
-        			  cant_prod: cantParam,
-        			  fecha : new Date() //revisar!!
-        			}).then(() => {
-        			  //valido la cantidad de producto reciclado
-        			  if(cantParam <= 0){
-        				  cantParam = 1;
-        			  }
-        			  
-        			  //actualizo los puntos del usuario
-        			  
-        			  user.updateAttributes({puntos: user.puntos + puntosSumados});
-
-      			});
-          }).then(function (result) {
-            console.log('Transacción se completo exitosamente!');
-            console.log(respuesta);
-            res.send(respuesta);
-          }).catch(function (err) {
-            console.log('Error: ' + err);
-            res.send({status_code:404, mensaje:'Ha ocurrido un error al realizar la operación'});
-          });
-        }else{
-          console.log('Material no encontrado');
-          res.send({status_code:404, mensaje:'Producto no encontrado'});
+      	console.log('El usuario ' + user.nombre + ' ' + user.apellido + ' reciclara el producto ' + producto.nombre_producto);
+      	//inserto registro del reciclaje
+        //valido la cantidad de producto reciclado
+        if(cantParam <= 0){
+          cantParam = 1;
         }
-		});
+        var respuesta = {};
+        var puntosSumados = producto.material.puntos * producto.cant_material * cantParam;
+        respuesta = {
+          status_code:200,
+          puntos_anteriores: user.puntos,
+          puntos_sumados: puntosSumados,
+          equ_arboles: producto.material.equ_arboles * producto.cant_material * cantParam,
+          equ_energia: producto.material.equ_energia * producto.cant_material * cantParam,
+          equ_agua: producto.material.equ_agua * producto.cant_material * cantParam
+        };
+
+  			sequelize.transaction(function (t) {
+          return models.reciclaje_Usuario.create({
+    			  usuario_id: userParam, 
+    			  producto_id: producto.id,
+    			  punto_rec_id: puntorecParam,
+    			  cant_prod: cantParam
+    			}).then(() => {
+    			  
+    			  //actualizo los puntos del usuario
+    			  user.updateAttributes({puntos: user.puntos + puntosSumados});
+  			});
+        }).then(function (result) {
+          console.log('Transacción se completo exitosamente!');
+          console.log(respuesta);
+          res.send(respuesta);
+        }).catch(function (err) {
+          console.log('Error: ' + err);
+          res.send({status_code:404, mensaje:'Ha ocurrido un error al realizar la operación'});
+        });
       }else{
         console.log('Producto no encontrado');
         res.send({status_code:404, mensaje:'Producto no encontrado'});
