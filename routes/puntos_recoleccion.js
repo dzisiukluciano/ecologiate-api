@@ -124,33 +124,28 @@ router.post('/review', function(req, res, next) {
     	if(user){
     		console.log('usuario encontrado!');
     		//busco punto
-    		models.puntos_recoleccion.findOne({ where: {id: punto_rec_id_param} }).then(punto => {
+    		models.punto_recoleccion.findOne({ where: {id: punto_rec_id_param} }).then(punto => {
     			if(punto){
     				console.log('punto de recoleccion encontrado!');
     				if(punto.usuario_id != user.id){
 	    				//valido si el usuario ya hizo una review del punto
-	    				models.opiniones_Puntos_Rec.findOne({where: {usuario_id: user.id, punto_rec_id: punto.id}}).then(review => {
+	    				models.opinion_punto_rec.findOne({where: {usuario_id: user.id, punto_rec_id: punto.id}}).then(review => {
 	    					if(review){
 	    						console.log('El usuario '+user.id+' ya realizó una review para el punto '+punto.id);
-	    						res.send({status_code:404, mensaje:'Usuario ya hizo una review del punto'});
-	    					} else {
-	    						//no existe review
-	    						sequelize.transaction(function (t) {
-		    						models.opiniones_Puntos_Rec.create({
-										usuario_id: usuario_param,
-										punto_rec_id: punto_rec_id_param,
-										puntuacion: puntuacion_param,
-										comentario : comentario_param,
-										fecha: new Date()
-									});	
-	    						}).then(function (result) {
-						            console.log('Transacción se completo exitosamente!');
-						            res.send({status_code:200, mensaje:'Opinion de punto de recoleccion insertada correctamente'});
-						        }).catch(function (err) {
-						            console.log('Error: ' + err);
-						            res.send({status_code:404, mensaje:'Ha ocurrido un error al realizar la operación'});
-						        });
-	    					}
+	    						review.destroy();
+	    					} 
+							models.opinion_punto_rec.create({
+									usuario_id: usuario_param,
+									punto_rec_id: punto_rec_id_param,
+									puntuacion: puntuacion_param,
+									comentario : comentario_param
+							}).then(function (result) {
+								console.log('Transacción se completo exitosamente!');
+								res.send({opinion: result , status_code:200, mensaje:'Opinion de punto de recoleccion insertada correctamente'});
+							}).catch(function (err) {
+								console.log('Error: ' + err);
+								res.send({status_code:404, mensaje:'Ha ocurrido un error al realizar la operación'});
+							});
 	    				});
     				}else{
     					console.log('Usuario es el creador del punto, no puede hacer review');
