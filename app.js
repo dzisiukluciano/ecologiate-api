@@ -41,6 +41,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//para servir imágenes
+app.use('/images', express.static('images'))
+
 /********************************/
 /********************************/
 //recursos de la api
@@ -52,11 +55,9 @@ var items_service = require('./routes/items');
 var producto_service = require('./routes/producto');
 var pdr_service = require('./routes/puntos_recoleccion');
 var reciclar_service = require('./routes/reciclaje_usuario');
-var busqueda_manual_service = require('./routes/busqueda_manual');
 var alta_producto_service = require('./routes/alta_producto');
 var categoria_service = require('./routes/categoria');
 var material_service = require('./routes/materiales');
-var busqueda_productos_por_nombre = require('./routes/busqueda_productos_por_nombre');
 
 
 app.use('/', index);
@@ -65,10 +66,8 @@ app.use('/api/items', items_service);
 app.use('/api/producto', producto_service);
 app.use('/api/pdr', pdr_service);
 app.use('/api/reciclar', reciclar_service);
-app.use('/api/busqueda_manual', busqueda_manual_service);
 app.use('/api/alta_producto', alta_producto_service);
 app.use('/api/categoria', categoria_service);
 app.use('/api/material', material_service);
-app.use('/api/busqueda_productos_por_nombre', busqueda_productos_por_nombre);
 
 module.exports = app;

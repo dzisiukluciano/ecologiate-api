@@ -1,22 +1,26 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  var reciclaje_Usuario = sequelize.define('reciclaje_Usuario', {
+  var reciclaje_usuario = sequelize.define('reciclaje_usuario', {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
-    usuario_id: { type: DataTypes.INTEGER }, 
-    producto_id: { type: DataTypes.INTEGER },
-    punto_rec_id: { type: DataTypes.INTEGER},
     cant_prod: { type: DataTypes.INTEGER},
     fecha : { type: DataTypes.DATE }
   }, 
   {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-        //reciclaje_Usuario.belongsTo(models.User); por ejemplo
-        //o sino User.hasMany(models.reciclaje_Usuario);
+    //TODO índice por fecha
+    hooks: {
+      beforeCreate: (reciclaje, options) => {
+        reciclaje.fecha = new Date();
       }
     }
   });
-  return reciclaje_Usuario;
+  reciclaje_usuario.associate = function (models) {
+    //esto me agrega la columna usuario_id a la tabla, y el atributo usuario al model
+    reciclaje_usuario.belongsTo(models.usuario, {as: 'usuario'});
+    //esto me agrega la columna producto_id a la tabla, y el atributo producto al model
+    reciclaje_usuario.belongsTo(models.producto, {as: 'producto'});
+    //esto me agrega la columna punto_rec_id a la tabla, y el atributo punto_rec al model
+    reciclaje_usuario.belongsTo(models.punto_recoleccion, {as: 'punto_rec'});
+  };
+  return reciclaje_usuario;
 };

@@ -6,6 +6,7 @@ var sequelize = models.sequelize;
 /* examples
 	/api/pdr   	=> devuelve todos los pdr
 	/api/pdr?materiales=1,5,7	=> devuelve todos los puntos que tengan esos materiales
+	/api/pdr?materiales=1,5,7&area=Buenos%20Aires&pais=Argentina	=> devuelve todos los puntos que tengan esos materiales, pais y area
 	/api/pdr (post) => pasandole descripcion, direccion, latitud, longitud, usuario y materiales inserta nuevo punto de recoleccion
 	/api/pdr/review => pasandole usuario, punto_rec_id, puntuacion y comentario inserta nueva review
 */
@@ -13,51 +14,45 @@ var sequelize = models.sequelize;
 
 router.get('/', function(req, res, next) {
 	console.log('Búsqueda de puntos de recolección');
-	var materiales = [];
-	materiales = req.query.materiales;
+	var materialesParam = req.query.materiales;
+	var area = req.query.area;
+	var pais = req.query.pais;
 	console.log(materiales);
-	/*var array2 = [];
-	for(var i = 0; i < materiales.length; i++){
-		array2.push(materiales[i]);
-	};*/
-	if(materiales != undefined && materiales.length >0){
-		//busco todos los puntos que esten asociados a los materiales recibidos
-		console.log('busco puntos segun materiales');
-		//separo los valores obtenidos en un array
-		var mat = materiales.split(",");
-		//models.material_puntos.findAll({attributes: ['punto_rec_id'] },{where: {material_id: {$in:materiales} }}, { raw: true }).then(puntos_material => {
-			models.material_puntos.findAll({where: {material_id: {$in:mat} }}).then(puntos_material => {
-			//busco todos los datos de los puntos
-			console.log('obtuve resultados');
-			if(puntos_material != undefined && puntos_material.length > 0){
-				console.log('encontro puntos');
 
-				var array = [];
-				puntos_material.forEach((puntoMaterialItem) => {
-				    //console.log(puntoMaterialItem.get({
-				    //    plain: true
-				    //}));
-				    array.push(puntoMaterialItem.punto_rec_id);
-				    /*array.push(puntoMaterialItem.get({
-				        plain: true
-				    }));*/
-				});
-				console.log(array);
-				//console.log(puntos_material.get({ plain: true}));
-				models.puntos_recoleccion.findAll({where:{id: {$in: array}}}).then(puntos => {
-					res.send(puntos);
-				});
-			}else{
-				res.send({status_code:404, mensaje:'No hay puntos para los materiales indicados'});
-			}
-		});
-	}else{
-		//devuelvo todos los puntos
-		models.puntos_recoleccion.findAll().then(function(data){
-			res.send(data);
-		});
+	var wherePdr = {}; //mapa con la condición where sobre atributos del pdr
+	var whereMaterial = {}; //where sobre el join
+
+	if(area != undefined && area!=null && area.length >0){
+		wherePdr.area = area;
 	}
-	
+	if(pais != undefined && pais!=null && pais.length >0){
+		wherePdr.pais = pais;
+	}
+
+	if(materialesParam != undefined && materialesParam!=null && materialesParam.length >0){
+		var materiales = materialesParam.split(",");
+		whereMaterial = { id: { $in : materiales } }
+	}
+
+	models.punto_recoleccion.findAll({
+		//condiciones sobre el pdr
+		where : wherePdr,
+		attributes: ['id','descripcion','direccion','latitud','longitud'],
+		//asociaciones con condiciones que puse arriba
+		include: [
+			{model: models.material, as: 'materiales', where: whereMaterial, attributes:['id','descripcion']},
+			{model: models.usuario, as: 'usuario_alta', attributes:['id','nombre','apellido']}
+		]
+	})
+	.then(puntos => {
+		if(puntos && puntos.length>0){
+			res.setHeader('Content-Type', 'application/json');
+			res.send({puntos: puntos, status_code:200});
+		}else{
+			console.log("pdrs no encontrados");
+	      	res.send({status_code:404, mensaje:'No hay resultados'});
+		}
+	});
 });
 
 //alta de punto rec
@@ -66,64 +61,62 @@ router.post('/', function(req, res, next) {
   	var direccion_param = req.body.direccion;
   	var latitud_param = req.body.latitud;
   	var longitud_param  = req.body.longitud;
+  	var area_param = req.body.area;
+  	var pais_param = req.body.pais;
   	var usuario_param  = req.body.usuario;
-  	var materiales_param  = req.body.materiales;
+  	var materiales_param  = req.body.materiales; //un array
 
-//busco usuario
-  models.usuario.findOne({ where: {id: usuario_param} }).then(user => {
-    if(user){
-     	console.log('usuario encontrado!');
-		//inserto punto de rec
-		sequelize.transaction(function (t) {
-			models.puntos_recoleccion.create({
-				descripcion: descripcion_param,
-				direccion: direccion_param,
-				latitud: latitud_param,
-				longitud : longitud_param,
-				usuario_id: usuario_param,
-				fecha_baja: null
-			}).then(function(ultimo_punto){
-				//inserto materiales por punto
-				console.log(ultimo_punto.id);
-				if(materiales_param != undefined && materiales_param.length > 0){
-					for(var i = 0; i < materiales_param.length; i++){
-						models.materiales.findOne({ where: {id: materiales_param[i]} }).then(material => {
-				  			if(material){
-								console.log('material '+material.id+' encontrado!');
-								models.material_puntos.create({
-									material_id: material.id,
-									punto_rec_id: ultimo_punto.id
-								})
-							}else{
-								console.log('material '+material.id+' no encontrado');
-								res.send({status_code:404, mensaje:'No se encontro alguno de los materiales'});
-							}
-						});
-					}
-				}else{
-					console.log('No hay materiales asociados al punto');
+
+	//busco usuario
+ 	models.usuario.findOne({ where: {id: usuario_param} }).then(user => {
+	    if(user){
+	     	console.log('usuario encontrado!');
+	     	models.material.findAll({where: { id: { $in : materiales_param } }}).then(materiales => {
+	     		if(materiales && materiales.length>0){
+	     			//inserto el nuevo punto de recoleccion
+	     			models.punto_recoleccion.create({
+						descripcion: descripcion_param,
+						direccion: direccion_param,
+						latitud: latitud_param,
+						longitud : longitud_param,
+						pais : pais_param,
+						area : area_param,
+						usuario_alta_id : usuario_param
+					}).then(punto_creado => {
+						punto_creado.addMateriales(materiales_param).then(materiales_asociados => {
+							//busco el nuevo punto para devolverlo al frontend
+							models.punto_recoleccion.findOne({ 
+								where: {id: punto_creado.id}, 
+								//campos específicos
+								attributes: ['id','descripcion','direccion','latitud','longitud'],
+								//asociaciones de las fk
+								include: [
+									{model: models.material, as: 'materiales', attributes:['id','descripcion']},
+									{model: models.usuario, as: 'usuario_alta', attributes:['id','nombre','apellido']}
+								]
+							}).then(punto_nuevo => {
+								res.send({status_code:200, punto: punto_nuevo});
+							})
+						})
+					});
+	     		}else{
+	     			console.log('No hay materiales asociados al punto');
 					res.send({status_code:404, mensaje:'No hay materiales asociados al punto'});
-				}
-			});
-		}).then(function (result) {
-            console.log('Transacción se completo exitosamente!');
-            res.send({status_code:200, mensaje:'Punto de recoleccion insertado correctamente'});
-          }).catch(function (err) {
-            console.log('Error: ' + err);
-            res.send({status_code:404, mensaje:'Ha ocurrido un error al realizar la operación'});
-          });
-	}else{
-		console.log('Usuario no encontrado');
-		res.send({status_code:404, mensaje:'Usuario no encontrado'});
-	}		
-  });
+	     		}
+	     	});
+		}else{
+			console.log('Usuario no encontrado');
+			res.send({status_code:404, mensaje:'Usuario no encontrado'});
+		}		
+	});
 });
 
 //review del punto
 router.post('/review', function(req, res, next) {
+	//TODO borrar el review anterior de ese usuario en ese punto, si existe
   	var usuario_param  = req.body.usuario;
   	var punto_rec_id_param = req.body.punto_rec_id;
-  	var puntuacion_param = req.body.puntuacion;//boolean??
+  	var puntuacion_param = req.body.puntuacion; //boolean??
   	var comentario_param = req.body.comentario;
 
   	//busco usuario
