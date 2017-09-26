@@ -40,7 +40,7 @@ router.post('/reciclar_producto', function(req, res, next) {
             };
 
       			sequelize.transaction(function (t) {
-              models.reciclaje_Usuario.create({
+              return models.reciclaje_Usuario.create({
         			  usuario_id: userParam, 
         			  producto_id: producto.id,
         			  punto_rec_id: puntorecParam,

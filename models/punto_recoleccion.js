@@ -5,8 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
     descripcion : { type: DataTypes.STRING},
   	direccion : { type: DataTypes.STRING},
-  	latitud : { type: DataTypes.FLOAT },
-  	longitud : { type: DataTypes.FLOAT },
+  	latitud : { type: DataTypes.FLOAT, unique: 'unique_idx_pdr_latlng' },
+  	longitud : { type: DataTypes.FLOAT, unique: 'unique_idx_pdr_latlng' },
     pais : { type: DataTypes.STRING},
     area : { type: DataTypes.STRING}
   }, 
