@@ -5,8 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true},
   	puntuacion: { type: DataTypes.BOOLEAN},
   	comentario: { type: DataTypes.STRING},
-    usuario_id: {type: DataTypes.BIGINT, unique: 'unique_idx_usuario_punto'},
-    punto_rec_id: {type: DataTypes.BIGINT, unique: 'unique_idx_usuario_punto'}
+    usuario_id: {type: DataTypes.BIGINT},
+    punto_rec_id: {type: DataTypes.BIGINT}
   }, 
   {
     timestamps: true, //me agrega el createdAt y updatedAt
