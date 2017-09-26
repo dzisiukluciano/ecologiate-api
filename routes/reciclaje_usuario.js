@@ -46,10 +46,10 @@ router.post('/reciclar_producto', function(req, res, next) {
     			  producto_id: producto.id,
     			  punto_rec_id: puntorecParam,
     			  cant_prod: cantParam
-    			}).then(() => {
+    			}, {transaction: t}).then(() => {
     			  
     			  //actualizo los puntos del usuario
-    			  user.updateAttributes({puntos: user.puntos + puntosSumados});
+    			  user.updateAttributes({puntos: user.puntos + puntosSumados}, {transaction: t});
   			});
         }).then(function (result) {
           console.log('Transacción se completo exitosamente!');
