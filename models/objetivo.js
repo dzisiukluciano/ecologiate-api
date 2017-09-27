@@ -6,6 +6,22 @@ module.exports = function(sequelize, DataTypes) {
     descripcion : { type: DataTypes.STRING},
   	cant_meta : { type: DataTypes.INTEGER },
   	recompensa : { type: DataTypes.INTEGER } //es un numero que te da de puntos
+  },
+  {
+    indexes: [
+      {
+        name: 'idx_objetivo_producto',
+        fields: ['producto_id']
+      },
+      {
+        name: 'idx_objetivo_material',
+        fields: ['material_id']
+      },
+      {
+        name: 'idx_objetivo_medalla',
+        fields: ['medalla_id']
+      }
+    ]
   });
   objetivo.associate = function (models) {
     //esto me agrega la columna producto_id a la tabla, y el atributo producto al model

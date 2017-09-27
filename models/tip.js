@@ -6,6 +6,18 @@ module.exports = function(sequelize, DataTypes) {
     titulo : { type: DataTypes.STRING},
     descripcion : { type: DataTypes.STRING},
   	imagen : { type: DataTypes.STRING }
+  },
+  {
+    indexes: [
+      {
+        name: 'idx_tip_producto',
+        fields: ['producto_id']
+      },
+      {
+        name: 'idx_tip_material',
+        fields: ['material_id']
+      }
+    ]
   });
   tip.associate = function (models) {
     //esto me agrega la columna producto_id a la tabla, y el atributo producto al model

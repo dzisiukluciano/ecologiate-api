@@ -9,6 +9,13 @@ module.exports = function(sequelize, DataTypes) {
     equ_agua: { type: DataTypes.INTEGER},
     tipo_material_equ : { type: DataTypes.INTEGER},
     puntos_otorgados: { type: DataTypes.INTEGER}
+  },{
+    indexes: [
+      {
+        name: 'idx_material_categ',
+        fields: ['categoria_id']
+      }
+    ]
   });
   material.associate = function (models) {
     //esto me crea la columna material_id en producto, y la lista de productos en el model material

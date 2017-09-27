@@ -30,7 +30,7 @@ router.post('/reciclar_producto', function(req, res, next) {
           cantParam = 1;
         }
         var respuesta = {};
-        var puntosSumados = producto.material.puntos * producto.cant_material * cantParam;
+        var puntosSumados = producto.material.puntos_otorgados * producto.cant_material * cantParam;
         respuesta = {
           status_code:200,
           puntos_anteriores: user.puntos,
@@ -41,16 +41,16 @@ router.post('/reciclar_producto', function(req, res, next) {
         };
 
   			sequelize.transaction(function (t) {
-          return models.reciclaje_Usuario.create({
+          return models.reciclaje_usuario.create({
     			  usuario_id: userParam, 
     			  producto_id: producto.id,
     			  punto_rec_id: puntorecParam,
     			  cant_prod: cantParam
-    			}, {transaction: t}).then(() => {
-    			  
+    			}, {transaction: t})
+          .then(reciclaje => {
     			  //actualizo los puntos del usuario
-    			  user.updateAttributes({puntos: user.puntos + puntosSumados}, {transaction: t});
-  			});
+    			  return user.updateAttributes({puntos: user.puntos + puntosSumados});
+  			 });
         }).then(function (result) {
           console.log('Transacción se completo exitosamente!');
           console.log(respuesta);

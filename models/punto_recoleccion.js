@@ -18,12 +18,20 @@ module.exports = function(sequelize, DataTypes) {
     deletedAt: 'fecha_baja',
     indexes: [
       {
-        name: 'idx_punto_usuario_pais',
+        name: 'idx_punto_pais',
         fields: ['pais']
       },
       {
-        name: 'idx_punto_usuario_area',
+        name: 'idx_punto_area',
         fields: ['area']
+      },
+      {
+        name: 'idx_punto_fecha_baja',
+        fields: ['fecha_baja']
+      },
+      {
+        name: 'idx_punto_usuario',
+        fields: ['usuario_alta_id']
       }
     ]
   });

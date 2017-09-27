@@ -13,7 +13,21 @@ module.exports = function(sequelize, DataTypes) {
     paranoid: true, //me agrega el deletedAt
     createdAt: 'fecha_alta',
     updatedAt: 'fecha_modificacion',
-    deletedAt: 'fecha_baja'
+    deletedAt: 'fecha_baja',
+    indexes: [
+      {
+        name: 'idx_opinion_pdr',
+        fields: ['punto_rec_id']
+      },
+      {
+        name: 'idx_opinion_usuario',
+        fields: ['usuario_id']
+      },
+      {
+        name: 'idx_opinion_fecha_baja',
+        fields: ['fecha_baja']
+      }
+    ]
   });
   opinion_punto_rec.associate = function (models) {
     //esto me agrega la columna usuario_id a la tabla, y el atributo usuario al model

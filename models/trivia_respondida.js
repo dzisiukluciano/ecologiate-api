@@ -11,7 +11,21 @@ module.exports = function(sequelize, DataTypes) {
       beforeCreate: (respuesta, options) => {
         respuesta.fecha = new Date();
       }
-    }
+    },
+    indexes: [
+      {
+        name: 'idx_respondida_usuario',
+        fields: ['usuario_id']
+      },
+      {
+        name: 'idx_respondida_pregunta',
+        fields: ['pregunta_id']
+      },
+      {
+        name: 'idx_respondida_respuesta',
+        fields: ['respuesta_id']
+      }
+    ]
   });
   trivia_respondida.associate = function (models) {
     //esto me agrega la columna usuario_id a la tabla, y el atributo usuario al model

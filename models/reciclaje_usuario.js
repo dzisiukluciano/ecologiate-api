@@ -12,7 +12,25 @@ module.exports = function(sequelize, DataTypes) {
       beforeCreate: (reciclaje, options) => {
         reciclaje.fecha = new Date();
       }
-    }
+    },
+    indexes: [
+      {
+        name: 'idx_reciclaje_usuario',
+        fields: ['usuario_id']
+      },
+      {
+        name: 'idx_reciclaje_producto',
+        fields: ['producto_id']
+      },
+      {
+        name: 'idx_reciclaje_fecha',
+        fields: ['fecha']
+      },
+      {
+        name: 'idx_reciclaje_punto',
+        fields: ['punto_rec_id']
+      }
+    ]
   });
   reciclaje_usuario.associate = function (models) {
     //esto me agrega la columna usuario_id a la tabla, y el atributo usuario al model

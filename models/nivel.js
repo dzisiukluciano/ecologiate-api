@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
     //esto me crea la columna nivel_id en usuario, y la lista de usuarios en el model nivel
     nivel.hasMany(models.usuario, {as: 'usuarios', foreignKey: 'nivel_id'});
     //esto me crea la columna nivel_id en objetivo, y la lista de objetivos en el model nivel
-    nivel.hasMany(models.objetivo, {as: 'objetivos', foreignKey: 'nivel_id'});
+    //nivel.hasMany(models.objetivo, {as: 'objetivos', foreignKey: 'nivel_id'}); //ya no depende del nivel
   };
   return nivel;
 };

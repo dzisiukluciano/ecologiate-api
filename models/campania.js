@@ -19,6 +19,18 @@ module.exports = function(sequelize, DataTypes) {
       {
         name: 'idx_campania_fecha_fin',
         fields: ['fecha_fin']
+      },
+      {
+        name: 'idx_campania_producto',
+        fields: ['producto_id']
+      },
+      {
+        name: 'idx_campania_material',
+        fields: ['material_id']
+      },
+      {
+        name: 'idx_campania_medalla',
+        fields: ['medalla_id']
       }
     ]
   });

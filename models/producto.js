@@ -27,6 +27,22 @@ module.exports = function(sequelize, DataTypes) {
       {
         name: 'idx_producto_estado',
         fields: ['estado']
+      },
+      {
+        name: 'idx_producto_fecha_baja',
+        fields: ['fecha_baja']
+      },
+      {
+        name: 'idx_producto_categ',
+        fields: ['categoria_id']
+      },
+      {
+        name: 'idx_producto_material',
+        fields: ['material_id']
+      },
+      {
+        name: 'idx_producto_usuario',
+        fields: ['usuario_alta_id']
       }
     ]
   });

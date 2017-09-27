@@ -10,7 +10,13 @@ module.exports = function(sequelize, DataTypes) {
     paranoid: true, //me agrega el deletedAt
     createdAt: 'fecha_alta',
     updatedAt: 'fecha_modificacion',
-    deletedAt: 'fecha_baja'
+    deletedAt: 'fecha_baja',
+    indexes: [
+      {
+        name: 'idx_grupo_fecha_baja',
+        fields: ['fecha_baja']
+      }
+    ]
   });
   grupo.associate = function (models) {
     //esto me crea la tabla intermedia grupo_usuario, y la lista de usuarios a un model grupo

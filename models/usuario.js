@@ -19,6 +19,18 @@ module.exports = function(sequelize, DataTypes) {
       {
         name: 'idx_usuario_mail',
         fields: ['mail']
+      },
+      {
+        name: 'idx_usuario_token',
+        fields: ['token']
+      },
+      {
+        name: 'idx_usuario_fecha_baja',
+        fields: ['fecha_baja']
+      },
+      {
+        name: 'idx_usuario_nivel',
+        fields: ['nivel_id']
       }
     ]
   });
