@@ -59,7 +59,7 @@ var alta_producto_service = require('./routes/alta_producto');
 var categoria_service = require('./routes/categoria');
 var material_service = require('./routes/materiales');
 var usuario_service = require('./routes/usuario');
-
+var campania_service = require('./routes/campania');
 
 app.use('/', index);
 app.use('/api/users', users);
@@ -71,5 +71,6 @@ app.use('/api/alta_producto', alta_producto_service);
 app.use('/api/categoria', categoria_service);
 app.use('/api/material', material_service);
 app.use('/api/usuario', usuario_service);
+app.use('/api/campania', campania_service);
 
 module.exports = app;
