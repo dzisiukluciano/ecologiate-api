@@ -58,6 +58,7 @@ var reciclar_service = require('./routes/reciclaje_usuario');
 var alta_producto_service = require('./routes/alta_producto');
 var categoria_service = require('./routes/categoria');
 var material_service = require('./routes/materiales');
+var usuario_service = require('./routes/usuario');
 
 
 app.use('/', index);
@@ -69,5 +70,6 @@ app.use('/api/reciclar', reciclar_service);
 app.use('/api/alta_producto', alta_producto_service);
 app.use('/api/categoria', categoria_service);
 app.use('/api/material', material_service);
+app.use('/api/usuario', usuario_service);
 
 module.exports = app;
