@@ -40,7 +40,7 @@ router.post('/reciclar_producto', function(req, res, next) {
           equ_agua: producto.material.equ_agua * producto.cant_material * cantParam
         };
 
-  			sequelize.transaction(function (t) {
+		sequelize.transaction(function (t) {
           return models.reciclaje_usuario.create({
     			  usuario_id: userParam, 
     			  producto_id: producto.id,
