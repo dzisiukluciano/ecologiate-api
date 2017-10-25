@@ -50,7 +50,6 @@ app.use('/images', express.static('images'))
 /********************************/
 /********************************/
 var index = require('./routes/index');
-var users = require('./routes/users');
 var items_service = require('./routes/items');
 var producto_service = require('./routes/producto');
 var pdr_service = require('./routes/puntos_recoleccion');
@@ -64,7 +63,6 @@ var grupos_service = require('./routes/grupos');
 var campanias_completas_service = require('./routes/campanias_completas');
 
 app.use('/', index);
-app.use('/api/users', users);
 app.use('/api/items', items_service);
 app.use('/api/producto', producto_service);
 app.use('/api/pdr', pdr_service);
