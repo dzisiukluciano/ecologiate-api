@@ -6,8 +6,8 @@ module.exports = function(sequelize, DataTypes) {
     nombre: { type: DataTypes.STRING },
   	apellido: { type: DataTypes.STRING },
   	mail: { type: DataTypes.STRING },
-    token: { type: DataTypes.STRING },
-    puntos: { type: DataTypes.BIGINT }
+    puntos: { type: DataTypes.BIGINT },
+    admin: { type: DataTypes.BOOLEAN, defaultValue: false }
   }, 
   {
     timestamps: true, //me agrega el createdAt y updatedAt
@@ -19,10 +19,6 @@ module.exports = function(sequelize, DataTypes) {
       {
         name: 'idx_usuario_mail',
         fields: ['mail']
-      },
-      {
-        name: 'idx_usuario_token',
-        fields: ['token']
       },
       {
         name: 'idx_usuario_fecha_baja',
@@ -47,6 +43,8 @@ module.exports = function(sequelize, DataTypes) {
     usuario.belongsTo(models.nivel, {as: 'nivel'});
     //esto me crea la tabla intermedia usuario_medalla, y la lista de medallas al model usuario
     usuario.belongsToMany(models.medalla, {as: 'medallas', through: 'usuario_medalla'});
+    //esto me crea la columna usuario_id en token, y la lista de tokens en el model usuario
+    usuario.hasMany(models.token, {as: 'tokens', foreignKey: 'usuario_id'});
   };
   return usuario;
 };

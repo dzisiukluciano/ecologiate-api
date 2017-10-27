@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
   	equ_arboles: { type: DataTypes.INTEGER}, 
     equ_energia: { type: DataTypes.INTEGER},
     equ_agua: { type: DataTypes.INTEGER},
-    tipo_material_equ : { type: DataTypes.INTEGER},
+    equ_emisiones : { type: DataTypes.INTEGER},
     puntos_otorgados: { type: DataTypes.INTEGER}
   },{
     indexes: [

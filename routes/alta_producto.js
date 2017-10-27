@@ -40,7 +40,27 @@ router.post('/', function(req, res, next) {
 					})
 					.then(function (producto) {
         				console.log('El usuario ' + usuario.nombre + ' ' + usuario.apellido + ' creó el producto ' + nombre_param);
-				 		res.send(producto);
+				 		//obtengo el producto para devolverlo
+				 		models.producto.findOne({ 
+							where: {id: producto.id}, 
+							//campos específicos
+							attributes: ['id','nombre_producto','cant_material','codigo_barra','estado'],
+							//asociaciones de las fk
+							include:[
+								{model: models.material, as: 'material'},
+								{model: models.categoria, as: 'categoria'},
+								{model: models.usuario, as: 'usuario_alta'}
+							] 
+						})
+						.then(producto => {  
+						    if(producto){
+						    	//ya tiene el material, categoría y usuario
+						    	res.send({producto:producto, status_code:200});
+						    }else{
+						      console.log("producto no encontrado");
+						      res.send({status_code:404, mensaje:'Producto no encontrado'});
+						    }
+					  	});
 			       	})
 			       	.catch(function (err) {
 			            console.log('Error: ' + err);
