@@ -68,7 +68,7 @@ router.get('/:idParam', function(req, res, next) {
 								  emisiones: emisiones
 								}
 							};
-				grupos.push( grupo_metricas);
+				grupos.push( grupo);
 			    arboles = 0;
 				agua = 0;
 				energia = 0;
