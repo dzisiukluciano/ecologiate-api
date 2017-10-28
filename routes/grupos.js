@@ -35,8 +35,9 @@ router.get('/:idParam', function(req, res, next) {
 	    	var arboles = 0;
 	    	var agua = 0;
 	    	var energia = 0;
+	    	var emisiones = 0;
 			var usuario_recorrido;
-			var grupo_metricas;
+			var grupo;
 			var grupos = [];
 			var usuarios = [];
 	    	console.log("usuario encontrado");
@@ -50,24 +51,28 @@ router.get('/:idParam', function(req, res, next) {
 									arboles += usuario_recorrido.reciclajes[z].producto.material.equ_arboles * usuario_recorrido.reciclajes[z].producto.cant_material * usuario_recorrido.reciclajes[z].cant_prod;
 									agua += usuario_recorrido.reciclajes[z].producto.material.equ_agua * usuario_recorrido.reciclajes[z].producto.cant_material * usuario_recorrido.reciclajes[z].cant_prod;
 									energia += usuario_recorrido.reciclajes[z].producto.material.equ_energia * usuario_recorrido.reciclajes[z].producto.cant_material * usuario_recorrido.reciclajes[z].cant_prod;
+									emisiones += usuario_recorrido.reciclajes[z].producto.material.equ_emisiones * usuario_recorrido.reciclajes[z].producto.cant_material * usuario_recorrido.reciclajes[z].cant_prod;
 								};
 							}
-							usuarios.push({ usuario_id : usuario_recorrido.id, usuario_nombre: usuario_recorrido.nombre, usuario_apellido: usuario_recorrido.apellido, usuario_puntos : usuario_recorrido.puntos });
+							usuarios.push({ id : usuario_recorrido.id, nombre: usuario_recorrido.nombre, apellido: usuario_recorrido.apellido, puntos : usuario_recorrido.puntos });
 						};
 					}
 				
-				grupo_metricas = {
-							  id_grupo: usuario.grupos[i].id,
-							  nombre_grupo: usuario.grupos[i].nombre,
+				grupo = {
+							  id: usuario.grupos[i].id,
+							  nombre: usuario.grupos[i].nombre,
 							  usuarios: usuarios,
-							  equ_arboles: arboles,
-							  equ_energia: energia,
-							  equ_agua: agua
+							  impacto: {arboles: arboles,
+								  energia: energia,
+								  agua: agua,
+								  emisiones: emisiones
+								}
 							};
 				grupos.push( grupo_metricas);
 			    arboles = 0;
 				agua = 0;
 				energia = 0;
+				emisiones = 0;
 				usuarios = [];
 	    		};
 	    	}
