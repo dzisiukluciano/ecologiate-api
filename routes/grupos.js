@@ -18,7 +18,7 @@ router.get('/:idParam', function(req, res, next) {
 					include:[
 					{model: models.producto, as: 'producto', attributes: ['nombre_producto','cant_material'],
 						include:[
-						{model: models.material, as: 'material', attributes: ['equ_arboles','equ_energia','equ_agua']
+						{model: models.material, as: 'material', attributes: ['equ_arboles','equ_energia','equ_agua','equ_emisiones']
 						}
 						]
 					}
@@ -62,10 +62,11 @@ router.get('/:idParam', function(req, res, next) {
 							  id: usuario.grupos[i].id,
 							  nombre: usuario.grupos[i].nombre,
 							  usuarios: usuarios,
-							  impacto: {arboles: arboles,
-								  energia: energia,
-								  agua: agua,
-								  emisiones: emisiones
+							  impacto: {
+							  		arboles: arboles,
+								 	energia: energia,
+								 	agua: agua,
+								 	emisiones: emisiones
 								}
 							};
 				grupos.push( grupo);
