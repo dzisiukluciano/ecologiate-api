@@ -4,10 +4,10 @@ module.exports = function(sequelize, DataTypes) {
   var material = sequelize.define('material', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   	descripcion: { type: DataTypes.STRING},
-  	equ_arboles: { type: DataTypes.INTEGER}, 
-    equ_energia: { type: DataTypes.INTEGER},
-    equ_agua: { type: DataTypes.INTEGER},
-    equ_emisiones : { type: DataTypes.INTEGER},
+    equ_arboles: { type: DataTypes.FLOAT}, 
+    equ_energia: { type: DataTypes.FLOAT},
+    equ_agua: { type: DataTypes.FLOAT},
+    equ_emisiones : { type: DataTypes.FLOAT},
     puntos_otorgados: { type: DataTypes.INTEGER}
   },{
     indexes: [
