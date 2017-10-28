@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
     nombre: { type: DataTypes.STRING },
   	apellido: { type: DataTypes.STRING },
   	mail: { type: DataTypes.STRING },
-    puntos: { type: DataTypes.BIGINT },
+    puntos: { type: DataTypes.FLOAT },
     admin: { type: DataTypes.BOOLEAN, defaultValue: false }
   }, 
   {
