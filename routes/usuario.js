@@ -162,7 +162,10 @@ function mapReciclaje(e, index){
 		producto:{
 			id:e.producto.id, 
 			nombre_producto:e.producto.nombre_producto,
-			material: e.producto.material
+			material: {
+				id: e.producto.material.id,
+				descripcion: e.producto.material.descripcion
+			}
 		}
 	};
 	return reciclaje;
