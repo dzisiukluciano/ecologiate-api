@@ -107,7 +107,7 @@ router.put('/login', function(req, res, next) {
 	    		reciclajes_filtrados = usuario.reciclajes.map(mapReciclaje);
 	    	}
 	    	res.send({
-	    		usuario: {id:usuario.id,puntos:usuario.puntos,nombre:usuario.puntos,apellido:usuario.apellido,mail:usuario.mail,
+	    		usuario: {id:usuario.id,puntos:usuario.puntos,nombre:usuario.nombre,apellido:usuario.apellido,mail:usuario.mail,
 	    			admin:usuario.admin,reciclajes:reciclajes_filtrados,nivel:usuario.nivel,tokens:usuario.tokens,objetivos_cumplidos:usuario.objetivos_cumplidos,
 	    			campanias_cumplidas:usuario.campanias_cumplidas
 	    		}, 
