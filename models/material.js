@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
     equ_energia: { type: DataTypes.FLOAT},
     equ_agua: { type: DataTypes.FLOAT},
     equ_emisiones : { type: DataTypes.FLOAT},
-    puntos_otorgados: { type: DataTypes.INTEGER}
+    puntos_otorgados: { type: DataTypes.FLOAT}
   },{
     indexes: [
       {
