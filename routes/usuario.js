@@ -155,7 +155,16 @@ router.put('/login', function(req, res, next) {
 });
 
 function mapReciclaje(e, index){
-	var reciclaje = {id:e.id, cant_prod:e.cant_prod, punto_rec_id: e.punto_rec_id, producto:{id:e.producto.id, nombre_producto:e.producto.nombre_producto}};
+	var reciclaje = {
+		id:e.id, 
+		cant_prod:e.cant_prod, 
+		punto_rec_id: e.punto_rec_id, 
+		producto:{
+			id:e.producto.id, 
+			nombre_producto:e.producto.nombre_producto,
+			material: e.producto.material
+		}
+	};
 	return reciclaje;
 }
 
