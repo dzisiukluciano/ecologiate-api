@@ -159,5 +159,4 @@ function mapReciclaje(e, index){
 	return reciclaje;
 }
 
-
 module.exports = router;

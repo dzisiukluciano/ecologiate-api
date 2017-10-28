@@ -79,4 +79,31 @@ router.get('/:idParam', function(req, res, next) {
   	});
 });
 
+
+router.post('/salir_grupo', function(req, res, next) {
+  var idUsuario = req.body.usuario_id;
+  var idGrupo = req.body.grupo_id;
+
+  var grupo_a_salir;
+  models.usuario.findOne({ 
+		where: {id: idUsuario}, 
+		attributes: ['id','nombre','apellido'],
+		//asociaciones de las fk
+		include:[
+		{model: models.grupo, as: 'grupos', attributes: ['id','nombre'],
+			include:[{model: models.usuario, as: 'usuarios', attributes: ['nombre','apellido','puntos']}]
+		}
+		]  
+	})
+ .then(usuario => {
+ 	if(usuario){
+ 		usuario.removeGrupos(idGrupo);
+ 		res.send({status_code: 200, mensaje: 'Ha salido del grupo'});
+ 	}else{
+ 		res.send({status_code: 404, mensaje: 'No se ha encontrado el usuario'});
+ 	}
+ })
+
+});
+
 module.exports = router;
