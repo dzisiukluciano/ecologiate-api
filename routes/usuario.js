@@ -109,9 +109,9 @@ router.put('/login', function(req, res, next) {
 	    	res.send({
 	    		usuario: {id:usuario.id,puntos:usuario.puntos,nombre:usuario.nombre,apellido:usuario.apellido,mail:usuario.mail,
 	    			admin:usuario.admin,reciclajes:reciclajes_filtrados,nivel:usuario.nivel,tokens:usuario.tokens,objetivos_cumplidos:usuario.objetivos_cumplidos,
-	    			campanias_cumplidas:usuario.campanias_cumplidas
-	    		}, 
-	    		impacto: {arboles:arboles, agua:agua, energia:energia, emisiones:emisiones}, 
+	    			campanias_cumplidas:usuario.campanias_cumplidas,
+	    			impacto: {arboles:arboles, agua:agua, energia:energia, emisiones:emisiones}
+	    		},  
 	    		status_code:200
 	    	});
 		}else{
