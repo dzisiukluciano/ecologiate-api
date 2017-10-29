@@ -62,6 +62,7 @@ var campania_service = require('./routes/campania');
 var grupos_service = require('./routes/grupos');
 var campanias_completas_service = require('./routes/campanias_completas');
 var trivia_service = require('./routes/trivia');
+var objetivo_service = require('./routes/objetivo');
 
 app.use('/', index);
 app.use('/api/items', items_service);
@@ -76,5 +77,6 @@ app.use('/api/campania', campania_service);
 app.use('/api/grupos', grupos_service);
 app.use('/api/campanias_completas', campanias_completas_service);
 app.use('/api/trivia', trivia_service);
+app.use('/api/objetivo', objetivo_service);
 
 module.exports = app;
