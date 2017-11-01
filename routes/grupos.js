@@ -114,7 +114,7 @@ router.post('/salir_grupo', function(req, res, next) {
 
 router.post('/crear_grupo', function(req, res, next) {
   var idUsuario = req.body.usuario_id;
-  var nombreGrupo = req.body.nombreGrupo;
+  var nombreGrupo = req.body.nombre_grupo;
   //var idGrupo = req.body.grupo_id;
 
   //var grupo_a_salir;
@@ -135,6 +135,9 @@ router.post('/crear_grupo', function(req, res, next) {
  		}).then(nuevoGrupo => {
  			usuario.addGrupo(nuevoGrupo.id);
  			res.send({status_code: 200, mensaje: 'Se ha creado el grupo correctamente',grupo: nuevoGrupo});
+ 		}).catch(error =>{
+ 			console.log(error);
+ 			res.send({status_code: 500, mensaje: 'Error creando el grupo', error: error.name});
  		});
  	}else{
  		res.send({status_code: 404, mensaje: 'No se ha encontrado el usuario'});
