@@ -148,7 +148,7 @@ router.post('/crear_grupo', function(req, res, next) {
 
 router.post('/invitar_grupo', function(req, res, next) {
   var idUsuario = req.body.usuario_id;
-  var emailInvitado = req.body.emailInvitado;
+  var emailInvitado = req.body.email_invitado;
   var idGrupo = req.body.grupo_id;
 
   //busco usuario invitado
