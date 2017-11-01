@@ -112,4 +112,62 @@ router.post('/salir_grupo', function(req, res, next) {
 
 });
 
+router.post('/crear_grupo', function(req, res, next) {
+  var idUsuario = req.body.usuario_id;
+  var nombreGrupo = req.body.nombreGrupo;
+  //var idGrupo = req.body.grupo_id;
+
+  //var grupo_a_salir;
+  models.usuario.findOne({ 
+		where: {id: idUsuario}, 
+		attributes: ['id','nombre','apellido'],
+		//asociaciones de las fk
+		include:[
+		{model: models.grupo, as: 'grupos', attributes: ['id','nombre'],
+			include:[{model: models.usuario, as: 'usuarios', attributes: ['nombre','apellido','puntos']}]
+		}
+		]  
+	})
+ .then(usuario => {
+ 	if(usuario){
+ 		models.grupo.create({
+ 			nombre: nombreGrupo
+ 		}).then(nuevoGrupo => {
+ 			usuario.addGrupo(nuevoGrupo.id);
+ 			res.send({status_code: 200, mensaje: 'Se ha creado el grupo correctamente',grupo: nuevoGrupo});
+ 		});
+ 	}else{
+ 		res.send({status_code: 404, mensaje: 'No se ha encontrado el usuario'});
+ 	}
+ })
+
+});
+
+router.post('/invitar_grupo', function(req, res, next) {
+  var idUsuario = req.body.usuario_id;
+  var emailInvitado = req.body.emailInvitado;
+  var idGrupo = req.body.grupo_id;
+
+  //busco usuario invitado
+  models.usuario.findOne({ 
+		where: {mail: emailInvitado}, 
+		attributes: ['id','nombre','apellido'],
+		//asociaciones de las fk
+		include:[
+		{model: models.grupo, as: 'grupos', attributes: ['id','nombre'],
+			include:[{model: models.usuario, as: 'usuarios', attributes: ['nombre','apellido','puntos']}]
+		}
+		]  
+	})
+ .then(usuario => {
+ 	if(usuario){
+		usuario.addGrupo(idGrupo);
+		res.send({status_code: 200, mensaje: 'Se ha invitado al usuario al grupo'});
+ 	}else{
+ 		res.send({status_code: 404, mensaje: 'No se ha encontrado el usuario que se ha invitado'});
+ 	}
+ })
+
+});
+
 module.exports = router;

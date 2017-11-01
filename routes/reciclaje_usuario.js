@@ -172,6 +172,7 @@ router.post('/reciclar_producto', function(req, res, next) {
                 equ_arboles: producto.material.equ_arboles * producto.cant_material * cantParam,
                 equ_energia: producto.material.equ_energia * producto.cant_material * cantParam,
                 equ_agua: producto.material.equ_agua * producto.cant_material * cantParam,
+                equ_emisiones: producto.material.equ_emisiones * producto.cant_material * cantParam,
                 medallas_ganadas: medallas_para_devolver,
                 nivel: nivel
               };
