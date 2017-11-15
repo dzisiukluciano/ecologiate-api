@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 	var materialesParam = req.query.materiales;
 	var area = req.query.area;
 	var pais = req.query.pais;
-	console.log(materiales);
+	console.log(materialesParam);
 
 	var wherePdr = {}; //mapa con la condición where sobre atributos del pdr
 	var whereMaterial = {}; //where sobre el join

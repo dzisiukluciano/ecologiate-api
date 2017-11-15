@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
     nombre_producto: { type: DataTypes.STRING},
     cant_material: { type: DataTypes.INTEGER },
-  	codigo_barra: { type: DataTypes.BIGINT, unique: true },
+  	codigo_barra: { type: DataTypes.BIGINT},
     //estado : { type: DataTypes.ENUM('PENDIENTE','APROBADO','PROHIBIDO'), defaultValue: 'PENDIENTE' }
     estado : { type: DataTypes.STRING, defaultValue: 'PENDIENTE' }
   }, 
