@@ -124,11 +124,11 @@ router.get('/review/:idParam', function(req, res, next) {
 				model: models.opinion_punto_rec, 
 				as: 'opiniones', 
 				attributes:['id','puntuacion','comentario'],
-				include: [
+				include: [{
 					model: models.usuario,
 					as:'usuario',
 					attributes:['id','nombre','apellido']
-				]
+				}]
 			}
 		]
 	})
