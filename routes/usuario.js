@@ -116,40 +116,44 @@ router.put('/login', function(req, res, next) {
 	    	});
 		}else{
 			console.log('Usuario no encontrado');
-			//lo creo
-			models.usuario.create({
-				nombre: nombre,
-				apellido: apellido,
-				mail: email,
-				puntos : 0,
-				admin : false,
-				nivel_id : 1 //ATENTI CON ESTO, SI NO CAMBIA EL ID FUNCIONA, SINO LO TENGO QUE TRAER DE LA BD
-			})
-			.then(new_user => {
-				models.token.create({
-				  valor: token,
-				  tipo: 'AUTH'
+			//no quiero que nadie se cree un usuario Ecologiate porque pueden confundir
+			if(nombre && apellido && (nombre+apellido).toLowerCase().indexOf("ecologiate")>=0){
+				res.send({mensaje:"Nombre no permitido", status_code:403});
+			}else{
+				//lo creo
+				models.usuario.create({
+					nombre: nombre,
+					apellido: apellido,
+					mail: email,
+					puntos : 0,
+					admin : false,
+					nivel_id : 1 //ATENTI CON ESTO, SI NO CAMBIA EL ID FUNCIONA, SINO LO TENGO QUE TRAER DE LA BD
 				})
-				.then(token_creado => {
-					new_user.addTokens([token_creado]).then(tokens_asociados => {
-						//busco el nuevo usuario para devolverlo al frontend
-						models.usuario.findOne({ 
-							where: {mail: email},
-							//asociaciones de las fk
-							include:[
-								{model: models.reciclaje_usuario, as: 'reciclajes'},
-								{model: models.nivel, as: 'nivel'},
-								{model: models.token, as: 'tokens'},
-								{model: models.objetivo, as: 'objetivos_cumplidos'},
-								{model: models.campania, as: 'campanias_cumplidas'}
-							]
-						}).then(user_creado => {
-							res.send({usuario: user_creado, impacto: {arboles:0, agua:0, energia:0, emisiones:0}, status_code:200});
-						})
+				.then(new_user => {
+					models.token.create({
+					  valor: token,
+					  tipo: 'AUTH'
 					})
+					.then(token_creado => {
+						new_user.addTokens([token_creado]).then(tokens_asociados => {
+							//busco el nuevo usuario para devolverlo al frontend
+							models.usuario.findOne({ 
+								where: {mail: email},
+								//asociaciones de las fk
+								include:[
+									{model: models.reciclaje_usuario, as: 'reciclajes'},
+									{model: models.nivel, as: 'nivel'},
+									{model: models.token, as: 'tokens'},
+									{model: models.objetivo, as: 'objetivos_cumplidos'},
+									{model: models.campania, as: 'campanias_cumplidas'}
+								]
+							}).then(user_creado => {
+								res.send({usuario: user_creado, impacto: {arboles:0, agua:0, energia:0, emisiones:0}, status_code:200});
+							})
+						})
+					});
 				});
-			});
-
+			}
 		}		
 	});
 });

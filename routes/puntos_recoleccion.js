@@ -111,7 +111,39 @@ router.post('/', function(req, res, next) {
 	});
 });
 
-//review del punto
+//obtencion de reviews de punto
+router.get('/review/:idParam', function(req, res, next) {
+	var idParametro = req.params.idParam;
+	
+	models.punto_recoleccion.findOne({
+		where : {id: idParametro}, 
+		attributes: ['id'],
+		//asociaciones
+		include: [
+			{
+				model: models.opinion_punto_rec, 
+				as: 'opiniones', 
+				attributes:['id','puntuacion','comentario'],
+				include: [
+					model: models.usuario,
+					as:'usuario',
+					attributes:['id','nombre','apellido']
+				]
+			}
+		]
+	})
+	.then(punto => {
+		if(punto){
+			res.setHeader('Content-Type', 'application/json');
+			res.send({punto: punto, status_code:200});
+		}else{
+			console.log("pdr no encontrados");
+	      	res.send({status_code:404, mensaje:'No hay resultados'});
+		}
+	});
+});
+
+//alta de review del punto
 router.post('/review', function(req, res, next) {
 	//TODO borrar el review anterior de ese usuario en ese punto, si existe
   	var usuario_param  = req.body.usuario;
