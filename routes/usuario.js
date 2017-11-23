@@ -148,7 +148,24 @@ router.put('/login', function(req, res, next) {
 									{model: models.campania, as: 'campanias_cumplidas'}
 								]
 							}).then(user_creado => {
-								res.send({usuario: user_creado, impacto: {arboles:0, agua:0, energia:0, emisiones:0}, status_code:200});
+								res.send({
+						    		usuario: {
+						    			id:user_creado.id,
+						    			puntos:user_creado.puntos,
+						    			nombre:user_creado.nombre,
+						    			apellido:user_creado.apellido,
+						    			mail:user_creado.mail,
+						    			admin:user_creado.admin,
+						    			reciclajes:user_creado.reciclajes,
+						    			nivel:user_creado.nivel,
+						    			tokens:user_creado.tokens,
+						    			objetivos_cumplidos:user_creado.objetivos_cumplidos,
+						    			campanias_cumplidas:user_creado.campanias_cumplidas,
+						    			impacto: {arboles:0, agua:0, energia:0, emisiones:0}
+						    		},  
+						    		status_code:200
+						    	});
+
 							})
 						})
 					});
